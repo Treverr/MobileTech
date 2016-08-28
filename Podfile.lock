@@ -1,3 +1,25 @@
-PODFILE CHECKSUM: cbc2a63af2cb22ea43e8b9502449e5d9eed5d2a7
+PODS:
+  - Bolts-Swift (1.2.0)
+  - Bolts/Tasks (1.8.4)
+  - Parse (1.14.2):
+    - Bolts/Tasks (~> 1.8)
+  - ParseLiveQuery (1.0.1):
+    - Bolts-Swift
+    - Parse
+    - SocketRocket
+  - SocketRocket (0.5.1)
+
+DEPENDENCIES:
+  - Parse
+  - ParseLiveQuery
+
+SPEC CHECKSUMS:
+  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  Bolts-Swift: ac4e7d26719ed0f73aa85b9310da1648105fbde3
+  Parse: 4335d65f40cb3d43190d723144bbe1afb9c38230
+  ParseLiveQuery: d0eb2528cdc5e3e2f836741b0a6db828c7e41307
+  SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
+
+PODFILE CHECKSUM: ed01d248398d622cadeef1a09ae9130622f48c78
 
 COCOAPODS: 1.0.1

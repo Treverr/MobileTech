@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        let parseConfig = ParseClientConfiguration {
+            $0.server = "http://insparklepools.com:1337/parse"
+            $0.applicationId = "inSparkle"
+        }
+        
+        Parse.initializeWithConfiguration(parseConfig)
         
         return true
     }
