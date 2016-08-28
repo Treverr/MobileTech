@@ -1,0 +1,6 @@
+framework module Pods_MobileTech {
+  umbrella header "Pods-MobileTech-umbrella.h"
+
+  export *
+  module * { export * }
+}
