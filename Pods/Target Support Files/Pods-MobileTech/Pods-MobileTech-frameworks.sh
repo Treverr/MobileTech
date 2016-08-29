@@ -89,6 +89,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Parse/Parse.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ParseLiveQuery/ParseLiveQuery.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SocketRocket/SocketRocket.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SwiftSignatureView/SwiftSignatureView.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Bolts-Swift/BoltsSwift.framework"
@@ -96,4 +97,5 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Parse/Parse.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ParseLiveQuery/ParseLiveQuery.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SocketRocket/SocketRocket.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SwiftSignatureView/SwiftSignatureView.framework"
 fi

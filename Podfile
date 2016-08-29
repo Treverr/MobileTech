@@ -7,6 +7,7 @@ target 'MobileTech' do
   
   pod 'Parse'
   pod 'ParseLiveQuery'
+  pod "SwiftSignatureView"
 
   # Pods for MobileTech
 
