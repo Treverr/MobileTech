@@ -41,7 +41,7 @@ class NewNoteTableViewController: UITableViewController {
         let dateString = dateFormatter.stringFromDate(NSDate())
         
         self.noteObject.noteTitle = self.noteTitleTextField.text!
-        self.noteObject.noteContent = self.noteTextView.text + "\n\n\n" + "Trever Chambers Ewing" + " - " + dateString
+        self.noteObject.noteContent = self.noteTextView.text + "\n\n\n" + "Employee Name" + " - " + dateString
 
         
         self.noteObject.relatedService = self.relatedObj
