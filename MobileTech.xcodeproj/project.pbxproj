@@ -12,9 +12,11 @@
 		C958C5101D726C0400437B22 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C958C50E1D726C0400437B22 /* Main.storyboard */; };
 		C958C5121D726C0400437B22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C958C5111D726C0400437B22 /* Assets.xcassets */; };
 		C958C5151D726C0400437B22 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C958C5131D726C0400437B22 /* LaunchScreen.storyboard */; };
-		C99D49F41D7274E000D39033 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99D49F31D7274E000D39033 /* MainViewController.swift */; };
+		C99D49F41D7274E000D39033 /* ServiceMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99D49F31D7274E000D39033 /* ServiceMainViewController.swift */; };
+		C9DCE2C21D7548C40091DAA4 /* NoteObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DCE2C11D7548C40091DAA4 /* NoteObject.swift */; };
+		C9DCE2C41D754BF90091DAA4 /* ServiceObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DCE2C31D754BF90091DAA4 /* ServiceObject.swift */; };
 		C9DDCB821D73C9D5003F7C05 /* FloatersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DDCB811D73C9D5003F7C05 /* FloatersViewController.swift */; };
-		C9DDCB841D73E55B003F7C05 /* NotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DDCB831D73E55B003F7C05 /* NotesTableViewController.swift */; };
+		C9DDCB841D73E55B003F7C05 /* NewNoteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DDCB831D73E55B003F7C05 /* NewNoteTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,9 +29,11 @@
 		C958C5111D726C0400437B22 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C958C5141D726C0400437B22 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C958C5161D726C0400437B22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C99D49F31D7274E000D39033 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		C99D49F31D7274E000D39033 /* ServiceMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceMainViewController.swift; sourceTree = "<group>"; };
+		C9DCE2C11D7548C40091DAA4 /* NoteObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteObject.swift; sourceTree = "<group>"; };
+		C9DCE2C31D754BF90091DAA4 /* ServiceObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceObject.swift; sourceTree = "<group>"; };
 		C9DDCB811D73C9D5003F7C05 /* FloatersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatersViewController.swift; sourceTree = "<group>"; };
-		C9DDCB831D73E55B003F7C05 /* NotesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesTableViewController.swift; sourceTree = "<group>"; };
+		C9DDCB831D73E55B003F7C05 /* NewNoteTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewNoteTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,10 +86,12 @@
 		C958C5091D726C0400437B22 /* MobileTech */ = {
 			isa = PBXGroup;
 			children = (
-				C99D49F31D7274E000D39033 /* MainViewController.swift */,
+				C99D49F31D7274E000D39033 /* ServiceMainViewController.swift */,
 				C958C50A1D726C0400437B22 /* AppDelegate.swift */,
 				C958C50E1D726C0400437B22 /* Main.storyboard */,
-				C9DDCB831D73E55B003F7C05 /* NotesTableViewController.swift */,
+				C9DDCB831D73E55B003F7C05 /* NewNoteTableViewController.swift */,
+				C9DCE2C11D7548C40091DAA4 /* NoteObject.swift */,
+				C9DCE2C31D754BF90091DAA4 /* ServiceObject.swift */,
 				C9DDCB811D73C9D5003F7C05 /* FloatersViewController.swift */,
 				C958C5111D726C0400437B22 /* Assets.xcassets */,
 				C958C5131D726C0400437B22 /* LaunchScreen.storyboard */,
@@ -218,9 +224,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9DDCB821D73C9D5003F7C05 /* FloatersViewController.swift in Sources */,
-				C9DDCB841D73E55B003F7C05 /* NotesTableViewController.swift in Sources */,
+				C9DDCB841D73E55B003F7C05 /* NewNoteTableViewController.swift in Sources */,
 				C958C50B1D726C0400437B22 /* AppDelegate.swift in Sources */,
-				C99D49F41D7274E000D39033 /* MainViewController.swift in Sources */,
+				C99D49F41D7274E000D39033 /* ServiceMainViewController.swift in Sources */,
+				C9DCE2C41D754BF90091DAA4 /* ServiceObject.swift in Sources */,
+				C9DCE2C21D7548C40091DAA4 /* NoteObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

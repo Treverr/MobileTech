@@ -10,7 +10,9 @@ import UIKit
 import SwiftSignatureView
 
 class FloatersViewController: UIViewController {
-
+    
+    var serviceObject = ServiceObject()
+    
     // Notes Floater Panel
     @IBOutlet weak var notesTableView: UITableView!
     @IBOutlet weak var notesView: UIView!
@@ -37,6 +39,8 @@ class FloatersViewController: UIViewController {
     @IBOutlet weak var test: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FloatersViewController.updateNotes(_:)), name: "UpdateNotesNotificaiton", object: nil)
         
         self.acceptSigButton.tintColor = UIColor.grayColor()
         captureSignatureNavigationItem.rightBarButtonItem?.enabled = false
@@ -72,13 +76,13 @@ class FloatersViewController: UIViewController {
         }
         
         sigCustomerName.text = "Robert Casad"
-
+        
     }
-
+    
     @IBAction func clearSignature(sender: AnyObject) {
         signaturePanel.clear()
     }
-
+    
     @IBAction func acceptSigAction(sender: AnyObject) {
         let sigImage = signaturePanel.signature
         
@@ -87,8 +91,8 @@ class FloatersViewController: UIViewController {
         
         print("Captured")
     }
-
-
+    
+    
 }
 
 extension FloatersViewController : UITableViewDelegate, UITableViewDataSource {
@@ -97,7 +101,9 @@ extension FloatersViewController : UITableViewDelegate, UITableViewDataSource {
         var number = 0
         
         if tableView == notesTableView {
-            number = 1
+            if self.serviceObject.notes != nil {
+                number = self.serviceObject.notes!.count
+            }
         }
         return number
     }
@@ -106,7 +112,7 @@ extension FloatersViewController : UITableViewDelegate, UITableViewDataSource {
         var number = 0
         
         if tableView == notesTableView {
-            number = 1
+            return 1
         }
         
         return number
@@ -116,10 +122,8 @@ extension FloatersViewController : UITableViewDelegate, UITableViewDataSource {
         var cell = UITableViewCell()
         
         if tableView == notesTableView {
-            if indexPath.section == 0 {
-                cell = self.notesTableView.dequeueReusableCellWithIdentifier("notesCell") as UITableViewCell!
-                cell.textLabel!.text = "One line\nTwo Lines\nRed Lines\nBlue Lines"
-            }
+            cell = self.notesTableView.dequeueReusableCellWithIdentifier("notesCell") as UITableViewCell!
+            cell.textLabel!.text = self.serviceObject.notes![indexPath.section].noteContent
         }
         
         return cell
@@ -127,8 +131,9 @@ extension FloatersViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var title = ""
-        if section == 0 {
-            title = "Note Title Here"
+        
+        if self.serviceObject.notes?[section].noteTitle != nil {
+            title = self.serviceObject.notes![section].noteTitle
         }
         
         return title
@@ -142,12 +147,26 @@ extension FloatersViewController : UITableViewDelegate, UITableViewDataSource {
         return UITableViewAutomaticDimension
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "addNewNote" {
+            let vc = segue.destinationViewController.childViewControllers.first as! NewNoteTableViewController
+            vc.relatedObj = self.serviceObject
+        }
+    }
+    
+    func updateNotes(notification : NSNotification) {
+        let obj = notification.object as! ServiceObject
+        self.serviceObject = notification.object as! ServiceObject
+        print(obj.notes)
+        self.notesTableView.reloadData()
+    }
+    
 }
 
 extension FloatersViewController : SwiftSignatureViewDelegate {
     
     func swiftSignatureViewDidTapInside(view: SwiftSignatureView) {
-
+        
     }
     
     func swiftSignatureViewDidPanInside(view: SwiftSignatureView) {

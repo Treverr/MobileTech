@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class ServiceMainViewController: UIViewController {
     
     @IBOutlet weak var topDrawer: UIView!
     @IBOutlet weak var customerName: UILabel!
@@ -29,8 +29,6 @@ class MainViewController: UIViewController {
         customerName.text = "Customer Name"
         customerPhone.text = "(123) 456-7890"
         customerAddress.text = "2225 N. 25th St.\nTerre Haute, IN 47804"
-        
-
     
     }
     
@@ -40,13 +38,6 @@ class MainViewController: UIViewController {
     
     @IBOutlet var shadowViews: [UIView]!
     @IBOutlet weak var notesTableView: UITableView!
-    
-    
-    
-}
-
-
-extension MainViewController {
     
     
     
