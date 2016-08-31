@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MCSwipeTableViewCell.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Parse.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,17 +47,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0003E8B0DE7EAF0A1E3C9404F7137022</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>07289F5FE975C4B249066644344B188D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>2C8AA1BAF35413BDB954A1DF93576ED1</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>445EB34939F9550AEB1537F25718E4EA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,7 +77,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9C99C50C947075B18C1E141D88181F18</key>
+		<key>B4F457ACF77CEE8BE56F90B31D132358</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DCABB279241493D35AE6789E161C5BB7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

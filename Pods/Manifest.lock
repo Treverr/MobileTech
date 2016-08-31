@@ -1,6 +1,7 @@
 PODS:
   - Bolts-Swift (1.2.0)
   - Bolts/Tasks (1.8.4)
+  - MCSwipeTableViewCell (2.1.4)
   - Parse (1.14.2):
     - Bolts/Tasks (~> 1.8)
   - ParseLiveQuery (1.0.1):
@@ -11,6 +12,7 @@ PODS:
   - SwiftSignatureView (1.0.2)
 
 DEPENDENCIES:
+  - MCSwipeTableViewCell (~> 2.1.4)
   - Parse
   - ParseLiveQuery
   - SwiftSignatureView
@@ -18,11 +20,12 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   Bolts-Swift: ac4e7d26719ed0f73aa85b9310da1648105fbde3
+  MCSwipeTableViewCell: 1b303e16c3a26b1982f3a68386e9b8c5fc8344c3
   Parse: 4335d65f40cb3d43190d723144bbe1afb9c38230
   ParseLiveQuery: d0eb2528cdc5e3e2f836741b0a6db828c7e41307
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   SwiftSignatureView: cd9c46de49f675d613000164bccbc8d3be1df357
 
-PODFILE CHECKSUM: b032bcce8806e0d12af28c743f30537ccd038530
+PODFILE CHECKSUM: 35b816ef825e410e5a6a6fdf83ce40271cdfcbb2
 
 COCOAPODS: 1.0.1

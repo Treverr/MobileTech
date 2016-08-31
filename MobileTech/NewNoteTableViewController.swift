@@ -25,6 +25,10 @@ class NewNoteTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        noteTitleTextField.delegate = self
+        noteTitleTextField.addTarget(self, action: #selector(NewNoteTableViewController.textFieldDidChange(_:)), forControlEvents: .EditingChanged)
+        noteTextView.delegate = self
 
     }
     
@@ -47,7 +51,7 @@ class NewNoteTableViewController: UITableViewController {
         self.noteObject.relatedService = self.relatedObj
         
         if self.relatedObj.notes != nil {
-            self.relatedObj.notes?.append(self.noteObject)
+            self.relatedObj.notes?.insert(self.noteObject, atIndex: 0)
         } else {
             self.relatedObj.notes = [self.noteObject]
         }
@@ -57,6 +61,42 @@ class NewNoteTableViewController: UITableViewController {
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    func textFieldDidChange(textField : UITextField) {
+        if textField == noteTitleTextField {
+            if !noteTitleTextField.text!.isEmpty {
+                noteTitleRequiredView.hidden = true
+            } else {
+                noteTitleRequiredView.hidden = false
+            }
+        }
+    }
+}
+
+extension NewNoteTableViewController : UITextFieldDelegate {
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == noteTitleTextField {
+            self.noteTextView.becomeFirstResponder()
+        }
+        
+        return true
+    }
+    
+}
+
+extension NewNoteTableViewController : UITextViewDelegate {
+    
+    func textViewDidChange(textView: UITextView) {
+        if textView == noteTextView {
+            if !noteTextView.text.isEmpty {
+                noteContentRequiredView.hidden = true
+            } else {
+                noteContentRequiredView.hidden = false
+            }
+        }
+    }
+    
     
     
 }

@@ -15,9 +15,9 @@ class ServiceObject: PFObject, PFSubclassing {
         return "MobileTechServiceObjects"
     }
     
-    var linkedObject : PFObject {
-        get { return objectForKey("linkedObject") as! PFObject }
-        set { setObject(newValue, forKey: "linkedObject") }
+    var relatedService : [ServiceObject]? {
+        get { return objectForKey("relatedService") as? [ServiceObject] }
+        set { setObject(newValue!, forKey: "relatedService") }
     }
     
     var notes : [NoteObject]? {
@@ -38,6 +38,11 @@ class ServiceObject: PFObject, PFSubclassing {
     var trips : [NSDate : NSDate]? {
         get { return objectForKey("trips") as? [NSDate : NSDate]}
         set { setObject(newValue!, forKey: "trips") }
+    }
+    
+    var status : String {
+        get { return objectForKey("status") as! String}
+        set { setObject(newValue, forKey: "status") }
     }
     
 }

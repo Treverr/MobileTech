@@ -8,11 +8,13 @@
 
 import UIKit
 import Parse
+import CoreLocation
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
 
     var window: UIWindow?
+    var locationManager = CLLocationManager()
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -26,6 +28,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Parse.initializeWithConfiguration(parseConfig)
         
+        locationManager.delegate = self
+        switch CLLocationManager.authorizationStatus() {
+        case .Denied, .NotDetermined, .Restricted:
+            locationManager.requestAlwaysAuthorization()
+        default:
+            break
+        }
+    
         return true
     }
 
@@ -53,8 +63,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func registerSubclass() {
         NoteObject.registerSubclass()
+        ServiceObject.registerSubclass()
     }
 
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        switch CLLocationManager.authorizationStatus() {
+        case .Denied, .NotDetermined, .Restricted:
+            let alertController = UIAlertController(
+                title: "Roberts Gonna be PISSED",
+                message: "In order for Robert not to be pissed, open settings and set location services to 'Always'.",
+                preferredStyle: .Alert)
+            let openSettigs = UIAlertAction(title: "Open Settings", style: .Default, handler: { (action) in
+                if let url = NSURL(string: UIApplicationOpenSettingsURLString) {
+                    UIApplication.sharedApplication().openURL(url)
+                }
+            })
+            alertController.addAction(openSettigs)
+            
+            UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
+            
+        default:
+            break
+        }
+    }
 
 }
 
