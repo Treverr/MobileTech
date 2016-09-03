@@ -20,11 +20,6 @@ class ServiceObject: PFObject, PFSubclassing {
         set { setObject(newValue!, forKey: "relatedService") }
     }
     
-    var notes : [NoteObject]? {
-        get { return objectForKey("notes") as? [NoteObject] }
-        set { setObject(newValue!, forKey: "notes") }
-    }
-    
     var parts : [String]? {
         get { return objectForKey("parts") as? [String] }
         set { setObject(newValue!, forKey: "parts") }
@@ -43,6 +38,11 @@ class ServiceObject: PFObject, PFSubclassing {
     var status : String {
         get { return objectForKey("status") as! String}
         set { setObject(newValue, forKey: "status") }
+    }
+    
+    var relatedWorkOrder : WorkOrders! {
+        get { return objectForKey("relatedWorkOrder") as! WorkOrders}
+        set { setObject(newValue, forKey: "relatedWorkOrder") }
     }
     
 }

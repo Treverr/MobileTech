@@ -25,7 +25,6 @@ class NoteObject: PFObject, PFSubclassing {
         set { setObject(newValue, forKey: "noteContent") }
     }
     
-    //TODO: Set up service object
     var relatedService : ServiceObject {
         get { return objectForKey("relatedService") as! ServiceObject }
         set { setObject(newValue, forKey: "relatedService") }

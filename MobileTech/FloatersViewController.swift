@@ -13,6 +13,7 @@ import CoreLocation
 class FloatersViewController: UIViewController, CLLocationManagerDelegate {
     
     var serviceObject = ServiceObject()
+    var workOrderObject = WorkOrders()
     
     // Notes Floater Panel
     @IBOutlet weak var notesTableView: UITableView!
@@ -33,10 +34,12 @@ class FloatersViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var signatureView: UIView!
     @IBOutlet weak var signatureShadow: UIView!
     var signatureImage : UIImage?
+    var notes : [NoteObject]?
     
     // Parts Floater Panels
     @IBOutlet weak var partsTableView: UITableView!
     var parts = [String]()
+    
     // Parts Navigation Bar
     @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var partNavigationBar: UINavigationBar!
@@ -46,6 +49,8 @@ class FloatersViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var test: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FloatersViewController.updateNotes(_:)), name: "UpdateNotesNotificaiton", object: nil)
         
@@ -85,9 +90,13 @@ class FloatersViewController: UIViewController, CLLocationManagerDelegate {
             view.clipsToBounds = true
         }
         
-        sigCustomerName.text = "Robert Casad"
-        
         origEditButton = self.partNavItem.leftBarButtonItem
+        
+        self.sigCustomerName.text = self.workOrderObject.customerName
+        
+        if self.serviceObject.notes?.count > 0 {
+            
+        }
         
     }
     

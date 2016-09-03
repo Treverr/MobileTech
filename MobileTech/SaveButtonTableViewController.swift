@@ -42,7 +42,7 @@ class SaveButtonTableViewController: UITableViewController {
             self.saveAndComplete.tintColor = UIColor.grayColor()
             self.saveAndComplete.userInteractionEnabled = false
         }
-
+        
         
     }
     
@@ -83,10 +83,25 @@ class SaveButtonTableViewController: UITableViewController {
     }
     
     @IBAction func saveInProgress(sender: AnyObject) {
-        self.performSegueWithIdentifier("closeService", sender: nil)
-        self.dismissViewControllerAnimated(true) {
+        let objectToSave = ServiceObject()
+        
+        
+        
+        if self.floaterViewContoller.signatureImage != nil {
+            objectToSave.customerSignature = self.floaterViewContoller.signatureImage
         }
         
+        if self.floaterViewContoller.serviceObject.parts != nil {
+            objectToSave.parts = self.floaterViewContoller.serviceObject.parts
+        }
+        
+//        objectToSave.relatedWorkOrder = self.floaterViewContoller.workOrderObject
+        
+        objectToSave.saveInBackgroundWithBlock { (success : Bool, error : NSError?) in
+            if error == nil && success {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
+        }
     }
     
     @IBAction func saveAndComplete(sender: AnyObject) {

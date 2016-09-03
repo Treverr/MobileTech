@@ -125,4 +125,13 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
     override func viewWillDisappear(animated: Bool) {
         self.view.window!.removeGestureRecognizer(tapBGGesture)
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "detailSegue" {
+            let indexPath = self.tableView.indexPathForSelectedRow
+            let vc = segue.destinationViewController as! ServiceOrderDetailViewController
+            vc.serviceObject = self.workOrders[indexPath!.row]
+        }
+    }
+    
 }

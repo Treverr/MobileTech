@@ -23,17 +23,25 @@ class ServiceMainViewController: UIViewController, CLLocationManagerDelegate {
     
     var floaterPanelViewController : FloatersViewController!
     
+    var serviceOrderObject : ServiceObject!
+    var workOrderObject : WorkOrders!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         topDrawer.layer.shadowColor = UIColor.blackColor().CGColor
         topDrawer.layer.shadowOffset = CGSizeZero
         topDrawer.layer.shadowOpacity = 1
-        topDrawer.layer.shadowRadius = 5        
-        customerName.text = "Customer Name"
-        customerPhone.text = "(123) 456-7890"
-        customerAddress.text = "2225 N. 25th St.\nTerre Haute, IN 47804"
+        topDrawer.layer.shadowRadius = 5
+        
+        self.customerName.text = self.workOrderObject.customerName
+        self.customerPhone.text = self.workOrderObject.customerPhone
+        self.customerAddress.text = self.workOrderObject.customerAddress
     
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -46,6 +54,8 @@ class ServiceMainViewController: UIViewController, CLLocationManagerDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "floaters" {
             self.floaterPanelViewController = segue.destinationViewController as! FloatersViewController
+            self.floaterPanelViewController.serviceObject = self.serviceOrderObject
+            self.floaterPanelViewController.workOrderObject = self.workOrderObject
         }
         
         if segue.identifier == "save" {

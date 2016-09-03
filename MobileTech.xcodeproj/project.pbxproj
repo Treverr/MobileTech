@@ -32,6 +32,7 @@
 		C9DDCB841D73E55B003F7C05 /* NewNoteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DDCB831D73E55B003F7C05 /* NewNoteTableViewController.swift */; };
 		C9FF9E381D7A964900D5A2F2 /* EmployeeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FF9E371D7A964900D5A2F2 /* EmployeeModel.swift */; };
 		C9FF9E3A1D7A97F500D5A2F2 /* MyAssignedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FF9E391D7A97F500D5A2F2 /* MyAssignedTableViewCell.swift */; };
+		C9FF9E3C1D7B1E3400D5A2F2 /* ServiceOrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FF9E3B1D7B1E3400D5A2F2 /* ServiceOrderDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		C9DDCB831D73E55B003F7C05 /* NewNoteTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewNoteTableViewController.swift; sourceTree = "<group>"; };
 		C9FF9E371D7A964900D5A2F2 /* EmployeeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeModel.swift; sourceTree = "<group>"; };
 		C9FF9E391D7A97F500D5A2F2 /* MyAssignedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAssignedTableViewCell.swift; sourceTree = "<group>"; };
+		C9FF9E3B1D7B1E3400D5A2F2 /* ServiceOrderDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceOrderDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 			children = (
 				C9062D541D77D94B002D0D0F /* LogOutViewController.swift */,
 				C9DCE2D11D7652F40091DAA4 /* ServiceOrdersList.storyboard */,
+				C9FF9E3B1D7B1E3400D5A2F2 /* ServiceOrderDetailViewController.swift */,
 				C9FF9E391D7A97F500D5A2F2 /* MyAssignedTableViewCell.swift */,
 				C9DCE2DA1D767AA10091DAA4 /* ServiceOrderTableViewCell.swift */,
 				C9DCE2D81D7676700091DAA4 /* MyAssignedTableViewController.swift */,
@@ -326,6 +329,7 @@
 				C9FF9E3A1D7A97F500D5A2F2 /* MyAssignedTableViewCell.swift in Sources */,
 				C9DCE2C61D75D3E90091DAA4 /* SaveButtonTableViewController.swift in Sources */,
 				C9DDCB841D73E55B003F7C05 /* NewNoteTableViewController.swift in Sources */,
+				C9FF9E3C1D7B1E3400D5A2F2 /* ServiceOrderDetailViewController.swift in Sources */,
 				C9DCE2D71D7656080091DAA4 /* MasterTableViewController.swift in Sources */,
 				C958C50B1D726C0400437B22 /* AppDelegate.swift in Sources */,
 				C9062D551D77D94B002D0D0F /* LogOutViewController.swift in Sources */,

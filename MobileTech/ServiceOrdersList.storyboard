@@ -191,7 +191,7 @@
                                     <outlet property="address" destination="Uz7-sa-CI8" id="S2W-tv-ljg"/>
                                     <outlet property="customerName" destination="s1f-HX-xXo" id="yhK-MC-e7B"/>
                                     <outlet property="travelTime" destination="Joh-o3-9DE" id="afl-Ib-S52"/>
-                                    <segue destination="qdt-1D-AVm" kind="presentation" modalPresentationStyle="formSheet" id="l94-Le-osU"/>
+                                    <segue destination="qdt-1D-AVm" kind="presentation" identifier="detailSegue" modalPresentationStyle="formSheet" id="l94-Le-osU"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -209,10 +209,10 @@
             </objects>
             <point key="canvasLocation" x="1630" y="407"/>
         </scene>
-        <!--View Controller-->
+        <!--Service Order Detail View Controller-->
         <scene sceneID="DXy-YH-QgY">
             <objects>
-                <viewController id="qdt-1D-AVm" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="serviceOrderDetail" id="qdt-1D-AVm" customClass="ServiceOrderDetailViewController" customModule="MobileTech" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wIJ-l7-IB4"/>
                         <viewControllerLayoutGuide type="bottom" id="Ith-N8-inW"/>
@@ -294,7 +294,7 @@
                                 </constraints>
                                 <state key="normal" title="Button" image="WorkOrder"/>
                                 <connections>
-                                    <segue destination="IIL-LZ-dTK" kind="presentation" id="hWJ-da-Vql"/>
+                                    <action selector="openServiceMain:" destination="qdt-1D-AVm" eventType="touchUpInside" id="68r-S7-w1Q"/>
                                 </connections>
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rDX-4S-GFX">
@@ -341,6 +341,11 @@
                     <value key="contentSizeForViewInPopover" type="size" width="800" height="500"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="800" height="500"/>
+                    <connections>
+                        <outlet property="customerName" destination="G3F-yg-P9U" id="DS6-9J-ohi"/>
+                        <outlet property="phoneNumber" destination="lYf-31-kqJ" id="tWB-hJ-gNQ"/>
+                        <outlet property="wtbpTextView" destination="v4B-RY-d3p" id="Lo7-5P-TKc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ctk-0f-s6H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
