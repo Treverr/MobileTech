@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class MasterTableViewController: UITableViewController {
 
@@ -15,13 +16,19 @@ class MasterTableViewController: UITableViewController {
         
         let view = UIView()
         self.tableView.tableFooterView = view
-        
 
     }
     
     override func viewDidAppear(animated: Bool) {
         let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
         updateCellBadge(cell!, count: 14)
+        
+        print(PFUser.currentUser())
+        
+        if PFUser.currentUser() == nil {
+            let logInView = UIStoryboard(name: "Log In", bundle: nil).instantiateViewControllerWithIdentifier("logInViewController")
+            self.presentViewController(logInView, animated: true, completion: nil)
+        }
     }
     
     func updateCellBadge(cell : UITableViewCell, count : Int) {

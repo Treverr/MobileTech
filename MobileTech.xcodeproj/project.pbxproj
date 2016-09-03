@@ -8,11 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		5D1D0C5743FBC9FC815F2CEC /* Pods_MobileTech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3476E84F1A3B2F10A7098DC1 /* Pods_MobileTech.framework */; };
+		C9062D511D77CE4C002D0D0F /* LogIn.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9062D501D77CE4C002D0D0F /* LogIn.xcassets */; };
+		C9062D531D77CF65002D0D0F /* QRLogInScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9062D521D77CF65002D0D0F /* QRLogInScanViewController.swift */; };
+		C9062D551D77D94B002D0D0F /* LogOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9062D541D77D94B002D0D0F /* LogOutViewController.swift */; };
+		C9062D571D77E315002D0D0F /* WorkOrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9062D561D77E315002D0D0F /* WorkOrderModel.swift */; };
 		C958C50B1D726C0400437B22 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C958C50A1D726C0400437B22 /* AppDelegate.swift */; };
 		C958C5101D726C0400437B22 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C958C50E1D726C0400437B22 /* Main.storyboard */; };
 		C958C5121D726C0400437B22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C958C5111D726C0400437B22 /* Assets.xcassets */; };
 		C958C5151D726C0400437B22 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C958C5131D726C0400437B22 /* LaunchScreen.storyboard */; };
 		C99D49F41D7274E000D39033 /* ServiceMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99D49F31D7274E000D39033 /* ServiceMainViewController.swift */; };
+		C9CA5F1A1D7729B9007D6C0D /* Log In.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9CA5F191D7729B9007D6C0D /* Log In.storyboard */; };
+		C9CA5F1C1D772C82007D6C0D /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA5F1B1D772C82007D6C0D /* LogInViewController.swift */; };
 		C9DCE2C21D7548C40091DAA4 /* NoteObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DCE2C11D7548C40091DAA4 /* NoteObject.swift */; };
 		C9DCE2C41D754BF90091DAA4 /* ServiceObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DCE2C31D754BF90091DAA4 /* ServiceObject.swift */; };
 		C9DCE2C61D75D3E90091DAA4 /* SaveButtonTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DCE2C51D75D3E90091DAA4 /* SaveButtonTableViewController.swift */; };
@@ -24,12 +30,18 @@
 		C9DCE2DB1D767AA10091DAA4 /* ServiceOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DCE2DA1D767AA10091DAA4 /* ServiceOrderTableViewCell.swift */; };
 		C9DDCB821D73C9D5003F7C05 /* FloatersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DDCB811D73C9D5003F7C05 /* FloatersViewController.swift */; };
 		C9DDCB841D73E55B003F7C05 /* NewNoteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DDCB831D73E55B003F7C05 /* NewNoteTableViewController.swift */; };
+		C9FF9E381D7A964900D5A2F2 /* EmployeeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FF9E371D7A964900D5A2F2 /* EmployeeModel.swift */; };
+		C9FF9E3A1D7A97F500D5A2F2 /* MyAssignedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FF9E391D7A97F500D5A2F2 /* MyAssignedTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0114C981C4FC3F422B6EE377 /* Pods-MobileTech.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileTech.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobileTech/Pods-MobileTech.debug.xcconfig"; sourceTree = "<group>"; };
 		3476E84F1A3B2F10A7098DC1 /* Pods_MobileTech.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MobileTech.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8F0A60A54427C6D437E664B /* Pods-MobileTech.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileTech.release.xcconfig"; path = "Pods/Target Support Files/Pods-MobileTech/Pods-MobileTech.release.xcconfig"; sourceTree = "<group>"; };
+		C9062D501D77CE4C002D0D0F /* LogIn.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LogIn.xcassets; sourceTree = "<group>"; };
+		C9062D521D77CF65002D0D0F /* QRLogInScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRLogInScanViewController.swift; sourceTree = "<group>"; };
+		C9062D541D77D94B002D0D0F /* LogOutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogOutViewController.swift; sourceTree = "<group>"; };
+		C9062D561D77E315002D0D0F /* WorkOrderModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderModel.swift; sourceTree = "<group>"; };
 		C958C5071D726C0400437B22 /* MobileTech.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileTech.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C958C50A1D726C0400437B22 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C958C50F1D726C0400437B22 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -37,6 +49,8 @@
 		C958C5141D726C0400437B22 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C958C5161D726C0400437B22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C99D49F31D7274E000D39033 /* ServiceMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceMainViewController.swift; sourceTree = "<group>"; };
+		C9CA5F191D7729B9007D6C0D /* Log In.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Log In.storyboard"; sourceTree = "<group>"; };
+		C9CA5F1B1D772C82007D6C0D /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		C9DCE2C11D7548C40091DAA4 /* NoteObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteObject.swift; sourceTree = "<group>"; };
 		C9DCE2C31D754BF90091DAA4 /* ServiceObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceObject.swift; sourceTree = "<group>"; };
 		C9DCE2C51D75D3E90091DAA4 /* SaveButtonTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveButtonTableViewController.swift; sourceTree = "<group>"; };
@@ -48,6 +62,8 @@
 		C9DCE2DA1D767AA10091DAA4 /* ServiceOrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceOrderTableViewCell.swift; sourceTree = "<group>"; };
 		C9DDCB811D73C9D5003F7C05 /* FloatersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatersViewController.swift; sourceTree = "<group>"; };
 		C9DDCB831D73E55B003F7C05 /* NewNoteTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewNoteTableViewController.swift; sourceTree = "<group>"; };
+		C9FF9E371D7A964900D5A2F2 /* EmployeeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeModel.swift; sourceTree = "<group>"; };
+		C9FF9E391D7A97F500D5A2F2 /* MyAssignedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAssignedTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +116,7 @@
 		C958C5091D726C0400437B22 /* MobileTech */ = {
 			isa = PBXGroup;
 			children = (
+				C9CA5F181D7729AA007D6C0D /* Log In */,
 				C9DCE2D31D7652FB0091DAA4 /* Service Order List */,
 				C9DCE2C91D75FAAC0091DAA4 /* Main Service Screen */,
 				C958C50A1D726C0400437B22 /* AppDelegate.swift */,
@@ -109,6 +126,17 @@
 				C958C5161D726C0400437B22 /* Info.plist */,
 			);
 			path = MobileTech;
+			sourceTree = "<group>";
+		};
+		C9CA5F181D7729AA007D6C0D /* Log In */ = {
+			isa = PBXGroup;
+			children = (
+				C9062D521D77CF65002D0D0F /* QRLogInScanViewController.swift */,
+				C9CA5F191D7729B9007D6C0D /* Log In.storyboard */,
+				C9062D501D77CE4C002D0D0F /* LogIn.xcassets */,
+				C9CA5F1B1D772C82007D6C0D /* LogInViewController.swift */,
+			);
+			name = "Log In";
 			sourceTree = "<group>";
 		};
 		C9DCE2C71D75FA880091DAA4 /* Notes Floater */ = {
@@ -152,10 +180,14 @@
 		C9DCE2D31D7652FB0091DAA4 /* Service Order List */ = {
 			isa = PBXGroup;
 			children = (
+				C9062D541D77D94B002D0D0F /* LogOutViewController.swift */,
 				C9DCE2D11D7652F40091DAA4 /* ServiceOrdersList.storyboard */,
+				C9FF9E391D7A97F500D5A2F2 /* MyAssignedTableViewCell.swift */,
 				C9DCE2DA1D767AA10091DAA4 /* ServiceOrderTableViewCell.swift */,
 				C9DCE2D81D7676700091DAA4 /* MyAssignedTableViewController.swift */,
+				C9FF9E371D7A964900D5A2F2 /* EmployeeModel.swift */,
 				C9DCE2D61D7656080091DAA4 /* MasterTableViewController.swift */,
+				C9062D561D77E315002D0D0F /* WorkOrderModel.swift */,
 				C9DCE2D41D76540E0091DAA4 /* ServiceOrderList.xcassets */,
 			);
 			name = "Service Order List";
@@ -224,8 +256,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9DCE2D51D76540E0091DAA4 /* ServiceOrderList.xcassets in Resources */,
+				C9062D511D77CE4C002D0D0F /* LogIn.xcassets in Resources */,
 				C958C5151D726C0400437B22 /* LaunchScreen.storyboard in Resources */,
 				C958C5121D726C0400437B22 /* Assets.xcassets in Resources */,
+				C9CA5F1A1D7729B9007D6C0D /* Log In.storyboard in Resources */,
 				C958C5101D726C0400437B22 /* Main.storyboard in Resources */,
 				C9DCE2D21D7652F40091DAA4 /* ServiceOrdersList.storyboard in Resources */,
 			);
@@ -286,17 +320,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9062D571D77E315002D0D0F /* WorkOrderModel.swift in Sources */,
 				C9DCE2CE1D75FE4A0091DAA4 /* PartsTableViewCell.swift in Sources */,
 				C9DDCB821D73C9D5003F7C05 /* FloatersViewController.swift in Sources */,
+				C9FF9E3A1D7A97F500D5A2F2 /* MyAssignedTableViewCell.swift in Sources */,
 				C9DCE2C61D75D3E90091DAA4 /* SaveButtonTableViewController.swift in Sources */,
 				C9DDCB841D73E55B003F7C05 /* NewNoteTableViewController.swift in Sources */,
 				C9DCE2D71D7656080091DAA4 /* MasterTableViewController.swift in Sources */,
 				C958C50B1D726C0400437B22 /* AppDelegate.swift in Sources */,
+				C9062D551D77D94B002D0D0F /* LogOutViewController.swift in Sources */,
+				C9062D531D77CF65002D0D0F /* QRLogInScanViewController.swift in Sources */,
 				C99D49F41D7274E000D39033 /* ServiceMainViewController.swift in Sources */,
 				C9DCE2DB1D767AA10091DAA4 /* ServiceOrderTableViewCell.swift in Sources */,
+				C9CA5F1C1D772C82007D6C0D /* LogInViewController.swift in Sources */,
 				C9DCE2D91D7676700091DAA4 /* MyAssignedTableViewController.swift in Sources */,
 				C9DCE2C41D754BF90091DAA4 /* ServiceObject.swift in Sources */,
 				C9DCE2C21D7548C40091DAA4 /* NoteObject.swift in Sources */,
+				C9FF9E381D7A964900D5A2F2 /* EmployeeModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

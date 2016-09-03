@@ -1,31 +1,37 @@
 PODS:
   - Bolts-Swift (1.2.0)
   - Bolts/Tasks (1.8.4)
-  - MCSwipeTableViewCell (2.1.4)
+  - IQKeyboardManagerSwift (4.0.4)
+  - NVActivityIndicatorView (2.10)
   - Parse (1.14.2):
     - Bolts/Tasks (~> 1.8)
   - ParseLiveQuery (1.0.1):
     - Bolts-Swift
     - Parse
     - SocketRocket
+  - RSBarcodes_Swift (0.1.9)
   - SocketRocket (0.5.1)
   - SwiftSignatureView (1.0.2)
 
 DEPENDENCIES:
-  - MCSwipeTableViewCell (~> 2.1.4)
+  - IQKeyboardManagerSwift
+  - NVActivityIndicatorView
   - Parse
   - ParseLiveQuery
+  - RSBarcodes_Swift
   - SwiftSignatureView
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   Bolts-Swift: ac4e7d26719ed0f73aa85b9310da1648105fbde3
-  MCSwipeTableViewCell: 1b303e16c3a26b1982f3a68386e9b8c5fc8344c3
+  IQKeyboardManagerSwift: e0964d04d6a29b71016fd346dca13ecb80a2823a
+  NVActivityIndicatorView: 5568608c3511690a42c4dd02f7a1de4361d670ae
   Parse: 4335d65f40cb3d43190d723144bbe1afb9c38230
   ParseLiveQuery: d0eb2528cdc5e3e2f836741b0a6db828c7e41307
+  RSBarcodes_Swift: 3c37a05faa0c8742739e1b47eec2f0d3d786330f
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   SwiftSignatureView: cd9c46de49f675d613000164bccbc8d3be1df357
 
-PODFILE CHECKSUM: 35b816ef825e410e5a6a6fdf83ce40271cdfcbb2
+PODFILE CHECKSUM: edff973d0af401030590e2e89b5005439a8ca580
 
 COCOAPODS: 1.0.1

@@ -8,6 +8,9 @@ target 'MobileTech' do
   pod 'Parse'
   pod 'ParseLiveQuery'
   pod "SwiftSignatureView"
+  pod 'IQKeyboardManagerSwift'
+  pod 'RSBarcodes_Swift'
+  pod 'NVActivityIndicatorView'
 
   # Pods for MobileTech
 

@@ -14,7 +14,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>MCSwipeTableViewCell.xcscheme</key>
+		<key>IQKeyboardManagerSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>NVActivityIndicatorView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -34,6 +39,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>RSBarcodes_Swift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SocketRocket.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -47,17 +57,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0003E8B0DE7EAF0A1E3C9404F7137022</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>07289F5FE975C4B249066644344B188D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>1520003FEBEC114D6C84F832AFEDB994</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>2C8AA1BAF35413BDB954A1DF93576ED1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>40C08BA1BCE92090A722364A5A160293</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5242C9E53D9BA196FD52457FAA4834C6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,17 +92,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>8698C4558AE758AD92477EC134E714F7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>8BAA0742E25D8338BD994ACFB93665FB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B4F457ACF77CEE8BE56F90B31D132358</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DCABB279241493D35AE6789E161C5BB7</key>
+		<key>BAFFFC6C00FB34246463842E66A4B47A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

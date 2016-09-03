@@ -35,8 +35,8 @@ class ServiceObject: PFObject, PFSubclassing {
         set { setObject(newValue!, forKey: "customerSignature") }
     }
     
-    var trips : [NSDate : NSDate]? {
-        get { return objectForKey("trips") as? [NSDate : NSDate]}
+    var trips : [[NSDate : NSDate]]? {
+        get { return objectForKey("trips") as? [[NSDate : NSDate]]}
         set { setObject(newValue!, forKey: "trips") }
     }
     
