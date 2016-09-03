@@ -12,7 +12,8 @@ class NewNoteTableViewController: UITableViewController {
     
     var noteObject = NoteObject()
     var relatedObj : ServiceObject!
-    var 
+    var relatedWorkOrder : WorkOrders!
+    var notes : [NoteObject]!
     
     @IBOutlet weak var noteTitleTextField: UITextField!
     @IBOutlet weak var noteTextView: UITextView!
@@ -48,18 +49,17 @@ class NewNoteTableViewController: UITableViewController {
         self.noteObject.noteTitle = self.noteTitleTextField.text!
         self.noteObject.noteContent = self.noteTextView.text + "\n\n\n" + "Employee Name" + " - " + dateString
 
+        self.noteObject.relatedWorkOder = self.relatedWorkOrder
         
-        self.noteObject.relatedService = self.relatedObj
-        
-//        if self.relatedObj.notes != nil {
-//            self.relatedObj.notes?.insert(self.noteObject, atIndex: 0)
-//        } else {
-//            self.relatedObj.notes = [self.noteObject]
-//        }
+        if self.notes != nil {
+            self.notes?.insert(self.noteObject, atIndex: 0)
+        } else {
+            self.notes = [self.noteObject]
+        }
         
         self.noteObject.saveInBackgroundWithBlock { (success : Bool, error : NSError?) in
             if error == nil && success {
-                NSNotificationCenter.defaultCenter().postNotificationName("UpdateNotesNotificaiton", object: self.relatedObj)
+                NSNotificationCenter.defaultCenter().postNotificationName("UpdateNotesNotificaiton", object: self.notes)
                 
                 self.dismissViewControllerAnimated(true, completion: nil)
             }

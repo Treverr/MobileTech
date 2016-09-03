@@ -85,8 +85,6 @@ class SaveButtonTableViewController: UITableViewController {
     @IBAction func saveInProgress(sender: AnyObject) {
         let objectToSave = ServiceObject()
         
-        
-        
         if self.floaterViewContoller.signatureImage != nil {
             objectToSave.customerSignature = self.floaterViewContoller.signatureImage
         }
@@ -95,11 +93,11 @@ class SaveButtonTableViewController: UITableViewController {
             objectToSave.parts = self.floaterViewContoller.serviceObject.parts
         }
         
-//        objectToSave.relatedWorkOrder = self.floaterViewContoller.workOrderObject
+        objectToSave.relatedWorkOrder = self.floaterViewContoller.workOrderObject
         
         objectToSave.saveInBackgroundWithBlock { (success : Bool, error : NSError?) in
             if error == nil && success {
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.floaterViewContoller.dismissViewControllerAnimated(true, completion: nil)
             }
         }
     }

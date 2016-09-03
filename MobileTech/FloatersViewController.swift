@@ -9,6 +9,7 @@
 import UIKit
 import SwiftSignatureView
 import CoreLocation
+import Parse
 
 class FloatersViewController: UIViewController, CLLocationManagerDelegate {
     
@@ -49,8 +50,6 @@ class FloatersViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var test: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FloatersViewController.updateNotes(_:)), name: "UpdateNotesNotificaiton", object: nil)
         
@@ -94,10 +93,17 @@ class FloatersViewController: UIViewController, CLLocationManagerDelegate {
         
         self.sigCustomerName.text = self.workOrderObject.customerName
         
-        if self.serviceObject.notes?.count > 0 {
-            
-        }
-        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        let notesQuery = NoteObject.query()
+        notesQuery?.whereKey("relatedWorkOder", equalTo: self.workOrderObject)
+        notesQuery?.orderByDescending("createdAt")
+        notesQuery?.findObjectsInBackgroundWithBlock({ (foundNotes : [PFObject]?, error : NSError?) in
+            if error == nil {
+                
+            }
+        })
     }
     
     @IBAction func clearSignature(sender: AnyObject) {
@@ -117,7 +123,7 @@ class FloatersViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func updateNotes(notification : NSNotification) {
-        self.serviceObject = notification.object as! ServiceObject
+        self.notes = notification.object as! [NoteObject]
         self.noteAdded = true
         self.notesTableView.reloadData()
     }
@@ -167,8 +173,8 @@ extension FloatersViewController : UITableViewDelegate, UITableViewDataSource {
         var number = 1
         
         if tableView == notesTableView {
-            if self.serviceObject.notes != nil {
-                number = self.serviceObject.notes!.count
+            if self.notes != nil {
+                number = self.notes!.count
             } else  {
                 number = 0
             }
@@ -196,7 +202,7 @@ extension FloatersViewController : UITableViewDelegate, UITableViewDataSource {
         
         if tableView == notesTableView {
             cell = self.notesTableView.dequeueReusableCellWithIdentifier("notesCell") as UITableViewCell!
-            cell.textLabel!.text = self.serviceObject.notes![indexPath.section].noteContent
+            cell.textLabel!.text = self.notes![indexPath.section].noteContent
         }
         
         if tableView == partsTableView {
@@ -218,8 +224,8 @@ extension FloatersViewController : UITableViewDelegate, UITableViewDataSource {
         if tableView == notesTableView {
             var title = ""
             
-            if self.serviceObject.notes?[section].noteTitle != nil {
-                title = self.serviceObject.notes![section].noteTitle
+            if self.notes?[section].noteTitle != nil {
+                title = self.notes![section].noteTitle
             }
             
             
@@ -241,6 +247,11 @@ extension FloatersViewController : UITableViewDelegate, UITableViewDataSource {
         if segue.identifier == "addNewNote" {
             let vc = segue.destinationViewController.childViewControllers.first as! NewNoteTableViewController
             vc.relatedObj = self.serviceObject
+            vc.relatedWorkOrder = self.workOrderObject
+            if self.notes != nil {
+                vc.notes = self.notes!
+            }
+            
         }
     }
     
@@ -281,6 +292,7 @@ extension FloatersViewController : UITableViewDelegate, UITableViewDataSource {
             return false
         }
     }
+    
     
 }
 

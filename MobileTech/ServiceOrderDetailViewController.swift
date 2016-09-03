@@ -46,6 +46,11 @@ class ServiceOrderDetailViewController: UIViewController {
                     vc.workOrderObject = self.serviceObject
                     
                     self.presentViewController(vc, animated: true, completion: nil)
+                } else {
+                    let sb = UIStoryboard(name: "Main", bundle: nil)
+                    let vc = sb.instantiateViewControllerWithIdentifier("serviceMain") as! ServiceMainViewController
+                    vc.serviceOrderObject = ServiceObject()
+                    vc.serviceOrderObject.relatedService!.appendContentsOf(foundPrevious!)
                 }
             }
         })

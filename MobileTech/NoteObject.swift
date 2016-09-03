@@ -30,4 +30,9 @@ class NoteObject: PFObject, PFSubclassing {
         set { setObject(newValue, forKey: "relatedService") }
     }
     
+    var relatedWorkOder : WorkOrders {
+        get { return objectForKey("relatedWorkOder") as! WorkOrders }
+        set { setObject(newValue, forKey: "relatedWorkOder") }
+    }
+    
 }
