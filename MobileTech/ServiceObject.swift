@@ -25,8 +25,8 @@ class ServiceObject: PFObject, PFSubclassing {
         set { setObject(newValue!, forKey: "parts") }
     }
     
-    var customerSignature : UIImage? {
-        get { return objectForKey("customerSignature") as? UIImage }
+    var customerSignature : PFFile? {
+        get { return objectForKey("customerSignature") as? PFFile }
         set { setObject(newValue!, forKey: "customerSignature") }
     }
     

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class SaveButtonTableViewController: UITableViewController {
     
@@ -17,8 +18,6 @@ class SaveButtonTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         
         self.tableView.reloadData()
         preferredContentSize.height = self.tableView.contentSize.height
@@ -82,30 +81,44 @@ class SaveButtonTableViewController: UITableViewController {
         }
     }
     
-    @IBAction func saveInProgress(sender: AnyObject) {
+    func save(status: String) {
         let objectToSave = ServiceObject()
         
         if self.floaterViewContoller.signatureImage != nil {
-            objectToSave.customerSignature = self.floaterViewContoller.signatureImage
+            let data : NSData = UIImagePNGRepresentation(self.floaterViewContoller.signatureImage!)!
+            let imageFile = PFFile(name: "customerSignature.png", data: data)
+            
+            imageFile?.saveInBackgroundWithBlock({ (success : Bool, error : NSError?) in
+                if error == nil && success {
+                    objectToSave.customerSignature = imageFile!
+                    objectToSave.saveInBackground()
+                }
+            })
         }
         
-        if self.floaterViewContoller.serviceObject.parts != nil {
-            objectToSave.parts = self.floaterViewContoller.serviceObject.parts
+        if self.floaterViewContoller.parts.count != 0 {
+            self.floaterViewContoller.workOrderObject.parts = self.floaterViewContoller.parts
         }
         
         objectToSave.relatedWorkOrder = self.floaterViewContoller.workOrderObject
         
+        self.floaterViewContoller.workOrderObject.status = status
+        self.floaterViewContoller.workOrderObject.saveInBackground()
+        
         objectToSave.saveInBackgroundWithBlock { (success : Bool, error : NSError?) in
             if error == nil && success {
-                self.floaterViewContoller.dismissViewControllerAnimated(true, completion: nil)
+                self.performSegueWithIdentifier("closeService", sender: nil)
             }
         }
     }
     
+    @IBAction func saveInProgress(sender: AnyObject) {
+        self.save("In Progress")
+
+    }
+    
     @IBAction func saveAndComplete(sender: AnyObject) {
-        self.performSegueWithIdentifier("closeService", sender: nil)
-        self.dismissViewControllerAnimated(true) {
-        }
+        self.save("Completed")
     }
     
 }

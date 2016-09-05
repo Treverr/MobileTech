@@ -93,6 +93,11 @@ class FloatersViewController: UIViewController, CLLocationManagerDelegate {
         
         self.sigCustomerName.text = self.workOrderObject.customerName
         
+        if self.workOrderObject.parts != nil {
+            self.parts = self.workOrderObject.parts as! [String]
+        }
+        
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -101,7 +106,8 @@ class FloatersViewController: UIViewController, CLLocationManagerDelegate {
         notesQuery?.orderByDescending("createdAt")
         notesQuery?.findObjectsInBackgroundWithBlock({ (foundNotes : [PFObject]?, error : NSError?) in
             if error == nil {
-                
+                self.notes = foundNotes as! [NoteObject]
+                self.notesTableView.reloadData()
             }
         })
     }
@@ -227,8 +233,6 @@ extension FloatersViewController : UITableViewDelegate, UITableViewDataSource {
             if self.notes?[section].noteTitle != nil {
                 title = self.notes![section].noteTitle
             }
-            
-            
             return title
         } else {
             return nil
@@ -240,7 +244,7 @@ extension FloatersViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-            return UITableViewAutomaticDimension
+        return UITableViewAutomaticDimension
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
