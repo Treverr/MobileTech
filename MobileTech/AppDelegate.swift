@@ -68,6 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func registerSubclass() {
         NoteObject.registerSubclass()
         ServiceObject.registerSubclass()
+        LocationTracker.registerSubclass()
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {

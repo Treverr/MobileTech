@@ -19,6 +19,7 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
     
     let locationManager = CLLocationManager()
     var currentLocation : CLPlacemark? = nil
+    var locationFailed = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +50,9 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
         tapBGGesture.numberOfTapsRequired = 1
         tapBGGesture.cancelsTouchesInView = false
         self.view.window!.addGestureRecognizer(tapBGGesture)
+        
+        NSTimer.scheduledTimerWithTimeInterval(600, target: self, selector: #selector(MyAssignedTableViewController.updateCurrentLocation), userInfo: nil, repeats: true)
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -93,8 +97,14 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
         cell.customerName.text! = self.workOrders[indexPath.row].customerName
         cell.address.text! = self.workOrders[indexPath.row].customerAddress
         
-        if self.currentLocation != nil {
-            cell.travelTime.text = String(self.getETA(address, cell: cell)) + " mins"
+        if !self.locationFailed {
+            if self.currentLocation != nil {
+                cell.travelTime.text = String(self.getETA(address, cell: cell)) + " mins"
+            } else {
+                cell.travelTime.text = "Calculating..."
+            }
+        } else {
+            cell.travelTime.text = "Unavailable"
         }
         
         return cell
@@ -175,6 +185,7 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
             let indexPath = self.tableView.indexPathForSelectedRow
             let vc = segue.destinationViewController as! ServiceOrderDetailViewController
             vc.serviceObject = self.workOrders[indexPath!.row]
+            vc.currentLocation = self.currentLocation
         }
     }
     
@@ -218,6 +229,17 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
             [String]).joinWithSeparator(", ")
     }
     
+    func logLocation(location : CLLocation) {
+        if PFUser.currentUser() != nil {
+            let loc = LocationTracker()
+            loc.device = UIDevice.currentDevice().name
+            loc.user = PFUser.currentUser()!
+            loc.location = PFGeoPoint(location: location)
+            
+            loc.saveInBackground()
+        }
+    }
+    
 }
 
 extension MyAssignedTableViewController : CLLocationManagerDelegate {
@@ -232,6 +254,7 @@ extension MyAssignedTableViewController : CLLocationManagerDelegate {
         CLGeocoder().reverseGeocodeLocation(locations.last!) { (placemarks : [CLPlacemark]?, error : NSError?) in
             if let placemarks = placemarks {
                 let placemark = placemarks[0]
+                self.logLocation(locations.last!)
                 self.currentLocation = placemark
                 self.tableView.reloadData()
             }
@@ -239,7 +262,7 @@ extension MyAssignedTableViewController : CLLocationManagerDelegate {
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        print(error)
+        self.locationFailed = true
     }
     
 }

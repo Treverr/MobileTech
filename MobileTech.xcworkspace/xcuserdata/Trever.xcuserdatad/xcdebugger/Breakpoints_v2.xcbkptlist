@@ -74,7 +74,7 @@
                   moduleName = "MobileTech"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Trever/Documents/MobileTech/MobileTech/LogOutViewController.swift"
-                  timestampString = "494734476.218462"
+                  timestampString = "494784090.495553"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "15"
@@ -89,7 +89,7 @@
                   moduleName = "MobileTech"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Trever/Documents/MobileTech/MobileTech/LogOutViewController.swift"
-                  timestampString = "494734476.218687"
+                  timestampString = "494784090.495711"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "16"
@@ -122,44 +122,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MobileTech/MyAssignedTableViewController.swift"
-            timestampString = "494732540.469493"
+            timestampString = "494784090.272433"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MobileTech/ServiceOrderDetailViewController.swift"
-            timestampString = "494694122.93279"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "openServiceMain(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MobileTech/ServiceOrderDetailViewController.swift"
-            timestampString = "494693867.79866"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "openServiceMain(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

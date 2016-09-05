@@ -17,6 +17,7 @@
 		C958C5121D726C0400437B22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C958C5111D726C0400437B22 /* Assets.xcassets */; };
 		C958C5151D726C0400437B22 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C958C5131D726C0400437B22 /* LaunchScreen.storyboard */; };
 		C99D49F41D7274E000D39033 /* ServiceMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99D49F31D7274E000D39033 /* ServiceMainViewController.swift */; };
+		C9B5B04F1D7DCA6500EA04D1 /* LocationTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5B04E1D7DCA6500EA04D1 /* LocationTracker.swift */; };
 		C9CA5F1A1D7729B9007D6C0D /* Log In.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9CA5F191D7729B9007D6C0D /* Log In.storyboard */; };
 		C9CA5F1C1D772C82007D6C0D /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA5F1B1D772C82007D6C0D /* LogInViewController.swift */; };
 		C9DCE2C21D7548C40091DAA4 /* NoteObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DCE2C11D7548C40091DAA4 /* NoteObject.swift */; };
@@ -50,6 +51,7 @@
 		C958C5141D726C0400437B22 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C958C5161D726C0400437B22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C99D49F31D7274E000D39033 /* ServiceMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceMainViewController.swift; sourceTree = "<group>"; };
+		C9B5B04E1D7DCA6500EA04D1 /* LocationTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTracker.swift; sourceTree = "<group>"; };
 		C9CA5F191D7729B9007D6C0D /* Log In.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Log In.storyboard"; sourceTree = "<group>"; };
 		C9CA5F1B1D772C82007D6C0D /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		C9DCE2C11D7548C40091DAA4 /* NoteObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteObject.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				C9DCE2D61D7656080091DAA4 /* MasterTableViewController.swift */,
 				C9062D561D77E315002D0D0F /* WorkOrderModel.swift */,
 				C9DCE2D41D76540E0091DAA4 /* ServiceOrderList.xcassets */,
+				C9B5B04E1D7DCA6500EA04D1 /* LocationTracker.swift */,
 			);
 			name = "Service Order List";
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				C9DDCB841D73E55B003F7C05 /* NewNoteTableViewController.swift in Sources */,
 				C9FF9E3C1D7B1E3400D5A2F2 /* ServiceOrderDetailViewController.swift in Sources */,
 				C9DCE2D71D7656080091DAA4 /* MasterTableViewController.swift in Sources */,
+				C9B5B04F1D7DCA6500EA04D1 /* LocationTracker.swift in Sources */,
 				C958C50B1D726C0400437B22 /* AppDelegate.swift in Sources */,
 				C9062D551D77D94B002D0D0F /* LogOutViewController.swift in Sources */,
 				C9062D531D77CF65002D0D0F /* QRLogInScanViewController.swift in Sources */,
