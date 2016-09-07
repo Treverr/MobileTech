@@ -11,6 +11,8 @@ target 'MobileTech' do
   pod 'IQKeyboardManagerSwift'
   pod 'RSBarcodes_Swift'
   pod 'NVActivityIndicatorView'
+  pod 'Fabric'
+  pod 'Crashlytics'
 
   # Pods for MobileTech
 

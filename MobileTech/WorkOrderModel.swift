@@ -118,4 +118,9 @@ class WorkOrders : PFObject, PFSubclassing {
         get {return objectForKey("labor") as? NSArray}
         set { setObject(newValue!, forKey: "labor") }
     }
+    
+    var trips : [[NSDate : NSDate]]? {
+        get { return objectForKey("trips") as? [[NSDate : NSDate]]}
+        set { setObject(newValue!, forKey: "trips") }
+    }
 }

@@ -88,7 +88,9 @@ class LogInViewController: UIViewController {
             PFUser.logInWithUsernameInBackground(self.sparkleConnect.text!, password: self.password.text!, block: { (user : PFUser?, error : NSError?) in
                 if error == nil && user != nil {
                     self.loadingUI.stopAnimation()
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                    let sb = UIStoryboard(name: "ServiceOrdersList", bundle: nil)
+                    let vc = sb.instantiateViewControllerWithIdentifier("mainSplitview")
+                    UIApplication.sharedApplication().keyWindow?.rootViewController = vc
                 }
             })
             

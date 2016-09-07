@@ -10,6 +10,8 @@ import UIKit
 import Parse
 import CoreLocation
 import IQKeyboardManagerSwift
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
@@ -19,8 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-        self.registerSubclass()
         
         let parseConfig = ParseClientConfiguration {
             $0.server = "http://insparklepools.com:1337/parse"

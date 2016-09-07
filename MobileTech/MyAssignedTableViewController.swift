@@ -27,16 +27,15 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
     
     override func viewWillAppear(animated: Bool) {
         
-        self.updateCurrentLocation()
-        
-        
-        if self.employee == nil {
-            if PFUser.currentUser() != nil {
+        if PFUser.currentUser() != nil {
+            if self.employee == nil {
                 PFUser.currentUser()?.objectForKey("employee")?.fetchIfNeededInBackgroundWithBlock({ (emp : PFObject?, error : NSError?) in
                     if error == nil {
                         self.employee = emp as! Employee
                         print(self.employee)
                         self.getAssignedOrders()
+                        self.updateCurrentLocation()
+                        NSTimer.scheduledTimerWithTimeInterval(600, target: self, selector: #selector(MyAssignedTableViewController.updateCurrentLocation), userInfo: nil, repeats: true)
                     }
                 })
             }
@@ -50,9 +49,6 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
         tapBGGesture.numberOfTapsRequired = 1
         tapBGGesture.cancelsTouchesInView = false
         self.view.window!.addGestureRecognizer(tapBGGesture)
-        
-        NSTimer.scheduledTimerWithTimeInterval(600, target: self, selector: #selector(MyAssignedTableViewController.updateCurrentLocation), userInfo: nil, repeats: true)
-
     }
     
     override func didReceiveMemoryWarning() {
@@ -204,6 +200,13 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
                 let mkMapItem = MKMapItem(placemark: mkPlace)
                 let request = MKDirectionsRequest()
                 
+                let indexPath = self.tableView.indexPathForCell(cell)
+                let identifier = self.workOrders[indexPath!.row].objectId
+                let center = MKPlacemark(placemark: place).coordinate
+                let geoFence = CLCircularRegion(center: center, radius: 100, identifier: identifier!)
+                
+                self.locationManager.startMonitoringForRegion(geoFence)
+                
                 request.source = mkMapItem
                 request.destination = destMapItem
                 request.transportType = .Automobile
@@ -214,7 +217,12 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
                     if travelTime > 60 {
                         let hour = Int(travelTime / 60)
                         let minutes = Int(travelTime - (hour * 60))
-                        cell.travelTime.text! = String(hour) + " hr " + String(minutes) + " mins"
+                        if hour > 1 {
+                            cell.travelTime.text! = String(hour) + " hrs " + String(minutes) + " mins"
+                        } else {
+                            cell.travelTime.text! = String(hour) + " hr " + String(minutes) + " mins"
+                        }
+                        
                     } else {
                         cell.travelTime.text = String((Int(response!.expectedTravelTime)) / 60) + " mins"
                     }
@@ -240,6 +248,33 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
         }
     }
     
+    func saveTimeLog(workOder : WorkOrders) {
+        let timeQuery = WorkServiceOrderTimeLog.query()
+        timeQuery!.whereKey("relatedWorkOrder", equalTo: workOder)
+        timeQuery!.whereKeyDoesNotExist("departed")
+        timeQuery!.whereKey("device", equalTo: UIDevice.currentDevice().name)
+        timeQuery!.whereKey("userLoggedIn", equalTo: PFUser.currentUser()!)
+        timeQuery?.findObjectsInBackgroundWithBlock({ (foundObjs : [PFObject]?, error : NSError?) in
+            if error == nil {
+                
+                if foundObjs?.count > 0 {
+                    for timeFound in foundObjs! {
+                        let timeObj = timeFound as! WorkServiceOrderTimeLog
+                        timeObj.departed = NSDate()
+                        timeObj.saveInBackground()
+                    }
+                } else {
+                    let timeObj = WorkServiceOrderTimeLog()
+                    timeObj.arrive = NSDate()
+                    timeObj.device = UIDevice.currentDevice().name
+                    timeObj.userLoggedIn = PFUser.currentUser()!
+                    timeObj.relatedWorkOrder = workOder
+                    timeObj.saveInBackground()
+                }
+            }
+        })
+    }
+    
 }
 
 extension MyAssignedTableViewController : CLLocationManagerDelegate {
@@ -263,6 +298,24 @@ extension MyAssignedTableViewController : CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         self.locationFailed = true
+    }
+    
+    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        print(region.identifier)
+        for work in self.workOrders {
+            if work.objectId == region.identifier {
+                self.saveTimeLog(work)
+            }
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
+        print(region.identifier)
+        for work in self.workOrders {
+            if work.objectId == region.identifier {
+                saveTimeLog(work)
+            }
+        }
     }
     
 }

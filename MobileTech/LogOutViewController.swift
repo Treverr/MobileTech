@@ -11,6 +11,8 @@ import Parse
 
 class LogOutViewController: UIViewController {
     
+    var timer : NSTimer?
+    
     @IBAction func logOutButton(sender: AnyObject) {
         PFUser.logOutInBackgroundWithBlock { (error : NSError?) in
             if error == nil {

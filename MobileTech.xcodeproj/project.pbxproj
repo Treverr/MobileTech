@@ -12,11 +12,13 @@
 		C9062D531D77CF65002D0D0F /* QRLogInScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9062D521D77CF65002D0D0F /* QRLogInScanViewController.swift */; };
 		C9062D551D77D94B002D0D0F /* LogOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9062D541D77D94B002D0D0F /* LogOutViewController.swift */; };
 		C9062D571D77E315002D0D0F /* WorkOrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9062D561D77E315002D0D0F /* WorkOrderModel.swift */; };
+		C945D9FF1D7F0C570053BD5F /* WorkServiceOrderTimeLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C945D9FE1D7F0C570053BD5F /* WorkServiceOrderTimeLog.swift */; };
 		C958C50B1D726C0400437B22 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C958C50A1D726C0400437B22 /* AppDelegate.swift */; };
 		C958C5101D726C0400437B22 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C958C50E1D726C0400437B22 /* Main.storyboard */; };
 		C958C5121D726C0400437B22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C958C5111D726C0400437B22 /* Assets.xcassets */; };
 		C958C5151D726C0400437B22 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C958C5131D726C0400437B22 /* LaunchScreen.storyboard */; };
 		C99D49F41D7274E000D39033 /* ServiceMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99D49F31D7274E000D39033 /* ServiceMainViewController.swift */; };
+		C9B38D851D7FD573001745C0 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B38D841D7FD573001745C0 /* LaunchViewController.swift */; };
 		C9B5B04F1D7DCA6500EA04D1 /* LocationTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5B04E1D7DCA6500EA04D1 /* LocationTracker.swift */; };
 		C9CA5F1A1D7729B9007D6C0D /* Log In.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9CA5F191D7729B9007D6C0D /* Log In.storyboard */; };
 		C9CA5F1C1D772C82007D6C0D /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA5F1B1D772C82007D6C0D /* LogInViewController.swift */; };
@@ -44,6 +46,7 @@
 		C9062D521D77CF65002D0D0F /* QRLogInScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRLogInScanViewController.swift; sourceTree = "<group>"; };
 		C9062D541D77D94B002D0D0F /* LogOutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogOutViewController.swift; sourceTree = "<group>"; };
 		C9062D561D77E315002D0D0F /* WorkOrderModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderModel.swift; sourceTree = "<group>"; };
+		C945D9FE1D7F0C570053BD5F /* WorkServiceOrderTimeLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkServiceOrderTimeLog.swift; sourceTree = "<group>"; };
 		C958C5071D726C0400437B22 /* MobileTech.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileTech.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C958C50A1D726C0400437B22 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C958C50F1D726C0400437B22 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -51,6 +54,7 @@
 		C958C5141D726C0400437B22 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C958C5161D726C0400437B22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C99D49F31D7274E000D39033 /* ServiceMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceMainViewController.swift; sourceTree = "<group>"; };
+		C9B38D841D7FD573001745C0 /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		C9B5B04E1D7DCA6500EA04D1 /* LocationTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTracker.swift; sourceTree = "<group>"; };
 		C9CA5F191D7729B9007D6C0D /* Log In.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Log In.storyboard"; sourceTree = "<group>"; };
 		C9CA5F1B1D772C82007D6C0D /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
@@ -127,6 +131,7 @@
 				C9DCE2C81D75FA940091DAA4 /* Floater Panels */,
 				C958C5111D726C0400437B22 /* Assets.xcassets */,
 				C958C5131D726C0400437B22 /* LaunchScreen.storyboard */,
+				C9B38D841D7FD573001745C0 /* LaunchViewController.swift */,
 				C958C5161D726C0400437B22 /* Info.plist */,
 			);
 			path = MobileTech;
@@ -193,6 +198,7 @@
 				C9FF9E371D7A964900D5A2F2 /* EmployeeModel.swift */,
 				C9DCE2D61D7656080091DAA4 /* MasterTableViewController.swift */,
 				C9062D561D77E315002D0D0F /* WorkOrderModel.swift */,
+				C945D9FE1D7F0C570053BD5F /* WorkServiceOrderTimeLog.swift */,
 				C9DCE2D41D76540E0091DAA4 /* ServiceOrderList.xcassets */,
 				C9B5B04E1D7DCA6500EA04D1 /* LocationTracker.swift */,
 			);
@@ -212,6 +218,7 @@
 				C958C5051D726C0400437B22 /* Resources */,
 				A62E93786F690DE1C9388530 /* [CP] Embed Pods Frameworks */,
 				7FE452F0D21833EB518EA51B /* [CP] Copy Pods Resources */,
+				C930DD7E1D7FB342007AC7DF /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -319,6 +326,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MobileTech/Pods-MobileTech-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C930DD7E1D7FB342007AC7DF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" bb9f228438400e05eeff9a4184baa75a30a9ea74 0c50bda97b33f1d934fba0ec283f8cb080b86c68a78653bd6087cd3e97b07f21";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -335,6 +355,7 @@
 				C9FF9E3C1D7B1E3400D5A2F2 /* ServiceOrderDetailViewController.swift in Sources */,
 				C9DCE2D71D7656080091DAA4 /* MasterTableViewController.swift in Sources */,
 				C9B5B04F1D7DCA6500EA04D1 /* LocationTracker.swift in Sources */,
+				C945D9FF1D7F0C570053BD5F /* WorkServiceOrderTimeLog.swift in Sources */,
 				C958C50B1D726C0400437B22 /* AppDelegate.swift in Sources */,
 				C9062D551D77D94B002D0D0F /* LogOutViewController.swift in Sources */,
 				C9062D531D77CF65002D0D0F /* QRLogInScanViewController.swift in Sources */,
@@ -344,6 +365,7 @@
 				C9DCE2D91D7676700091DAA4 /* MyAssignedTableViewController.swift in Sources */,
 				C9DCE2C41D754BF90091DAA4 /* ServiceObject.swift in Sources */,
 				C9DCE2C21D7548C40091DAA4 /* NoteObject.swift in Sources */,
+				C9B38D851D7FD573001745C0 /* LaunchViewController.swift in Sources */,
 				C9FF9E381D7A964900D5A2F2 /* EmployeeModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -462,6 +484,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MobileTech/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mysparklepools.MobileTech;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -475,6 +498,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MobileTech/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mysparklepools.MobileTech;
 				PRODUCT_NAME = "$(TARGET_NAME)";
