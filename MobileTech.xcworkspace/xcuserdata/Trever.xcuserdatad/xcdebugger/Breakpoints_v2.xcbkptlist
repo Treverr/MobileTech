@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MobileTech/MyAssignedTableViewController.swift"
-            timestampString = "494915339.761597"
+            timestampString = "494954835.432961"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -73,13 +73,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MobileTech/MyAssignedTableViewController.swift"
-            timestampString = "494915339.761597"
+            filePath = "MobileTech/MasterTableViewController.swift"
+            timestampString = "494951961.739202"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "304"
-            endingLineNumber = "304"
-            landmarkName = "locationManager(_:didEnterRegion:)"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "updateCellBadge(_:count:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -90,12 +90,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MobileTech/MyAssignedTableViewController.swift"
-            timestampString = "494915339.761597"
+            timestampString = "494955317.246136"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "313"
-            endingLineNumber = "313"
-            landmarkName = "locationManager(_:didExitRegion:)"
+            startingLineNumber = "312"
+            endingLineNumber = "312"
+            landmarkName = "saveTimeLog(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -106,12 +106,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MobileTech/MyAssignedTableViewController.swift"
-            timestampString = "494915339.761597"
+            timestampString = "494955317.246136"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "315"
-            endingLineNumber = "315"
-            landmarkName = "locationManager(_:didExitRegion:)"
+            startingLineNumber = "318"
+            endingLineNumber = "318"
+            landmarkName = "saveTimeLog(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -122,108 +122,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MobileTech/MyAssignedTableViewController.swift"
-            timestampString = "494915339.761597"
+            timestampString = "494955317.246136"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "316"
-            endingLineNumber = "316"
-            landmarkName = "locationManager(_:didExitRegion:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "function signature specialization &lt;Arg[0] = Dead and Owned To Guaranteed, Arg[1] = Owned To Guaranteed&gt; of MobileTech.MyAssignedTableViewController.locationManager (__ObjC.CLLocationManager, didExitRegion : __ObjC.CLRegion) -&gt; ()"
-                  moduleName = "MobileTech"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Trever/Documents/MobileTech/MobileTech/MyAssignedTableViewController.swift"
-                  timestampString = "494917479.656354"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "316"
-                  endingLineNumber = "316"
-                  offsetFromSymbolStart = "352">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "function signature specialization &lt;Arg[0] = Dead and Owned To Guaranteed, Arg[1] = Owned To Guaranteed&gt; of MobileTech.MyAssignedTableViewController.locationManager (__ObjC.CLLocationManager, didExitRegion : __ObjC.CLRegion) -&gt; ()"
-                  moduleName = "MobileTech"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Trever/Documents/MobileTech/MobileTech/MyAssignedTableViewController.swift"
-                  timestampString = "494917479.656449"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "316"
-                  endingLineNumber = "316"
-                  offsetFromSymbolStart = "420">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MobileTech/MyAssignedTableViewController.swift"
-            timestampString = "494915339.761597"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "307"
-            endingLineNumber = "307"
-            landmarkName = "locationManager(_:didEnterRegion:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "function signature specialization &lt;Arg[0] = Dead and Owned To Guaranteed, Arg[1] = Owned To Guaranteed&gt; of MobileTech.MyAssignedTableViewController.locationManager (__ObjC.CLLocationManager, didEnterRegion : __ObjC.CLRegion) -&gt; ()"
-                  moduleName = "MobileTech"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Trever/Documents/MobileTech/MobileTech/MyAssignedTableViewController.swift"
-                  timestampString = "494917479.657114"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "307"
-                  endingLineNumber = "307"
-                  offsetFromSymbolStart = "352">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "function signature specialization &lt;Arg[0] = Dead and Owned To Guaranteed, Arg[1] = Owned To Guaranteed&gt; of MobileTech.MyAssignedTableViewController.locationManager (__ObjC.CLLocationManager, didEnterRegion : __ObjC.CLRegion) -&gt; ()"
-                  moduleName = "MobileTech"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Trever/Documents/MobileTech/MobileTech/MyAssignedTableViewController.swift"
-                  timestampString = "494917479.657403"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "307"
-                  endingLineNumber = "307"
-                  offsetFromSymbolStart = "420">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MobileTech/MyAssignedTableViewController.swift"
-            timestampString = "494915339.761597"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "306"
-            endingLineNumber = "306"
-            landmarkName = "locationManager(_:didEnterRegion:)"
+            startingLineNumber = "322"
+            endingLineNumber = "322"
+            landmarkName = "saveTimeLog(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -234,12 +138,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MobileTech/MyAssignedTableViewController.swift"
-            timestampString = "494915339.761597"
+            timestampString = "494955317.246136"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "179"
-            endingLineNumber = "179"
-            landmarkName = "prepareForSegue(_:sender:)"
+            startingLineNumber = "324"
+            endingLineNumber = "324"
+            landmarkName = "saveTimeLog(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

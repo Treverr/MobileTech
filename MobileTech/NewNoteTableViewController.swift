@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class NewNoteTableViewController: UITableViewController {
     
@@ -42,12 +43,15 @@ class NewNoteTableViewController: UITableViewController {
     
     @IBAction func saveAction(sender: AnyObject) {
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = .ShortStyle
+        dateFormatter.dateStyle = .MediumStyle
         dateFormatter.timeStyle = .ShortStyle
         let dateString = dateFormatter.stringFromDate(NSDate())
         
+        let employee = PFUser.currentUser()?.objectForKey("employee") as! Employee
+        let employeeName = employee.firstName + " " + employee.lastName
+        
         self.noteObject.noteTitle = self.noteTitleTextField.text!
-        self.noteObject.noteContent = self.noteTextView.text + "\n\n\n" + "Employee Name" + " - " + dateString
+        self.noteObject.noteContent = self.noteTextView.text + "\n\n\n" + employeeName + " - " + dateString
 
         self.noteObject.relatedWorkOder = self.relatedWorkOrder
         

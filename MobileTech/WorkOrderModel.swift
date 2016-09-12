@@ -11,10 +11,6 @@ import Parse
 
 class WorkOrders : PFObject, PFSubclassing {
     
-    override class func initialize() {
-        self.registerSubclass()
-    }
-    
     static func parseClassName() -> String {
         return "WorkOrders"
     }

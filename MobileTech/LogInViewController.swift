@@ -88,9 +88,7 @@ class LogInViewController: UIViewController {
             PFUser.logInWithUsernameInBackground(self.sparkleConnect.text!, password: self.password.text!, block: { (user : PFUser?, error : NSError?) in
                 if error == nil && user != nil {
                     self.loadingUI.stopAnimation()
-                    let sb = UIStoryboard(name: "ServiceOrdersList", bundle: nil)
-                    let vc = sb.instantiateViewControllerWithIdentifier("mainSplitview")
-                    UIApplication.sharedApplication().keyWindow?.rootViewController = vc
+                    self.dismissViewControllerAnimated(true, completion: nil)
                 }
             })
             
@@ -131,22 +129,18 @@ class LogInViewController: UIViewController {
         self.logIn()
     }
     
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
-    
     var loadingUI : NVActivityIndicatorView!
     var loadingBackground = UIView()
     var label = UILabel()
     
     func sparkleConnectAnimation() {
-        
-        let x = (self.view.frame.size.width / 2)
-        let y = (self.view.frame.size.height / 2)
+        let screenSize = UIScreen.mainScreen().bounds.size
+        let x = (screenSize.width / 2)
+        let y = (screenSize.height / 2)
         
         self.loadingBackground.backgroundColor = UIColor.blackColor()
         self.loadingBackground.frame = CGRectMake(0, 0, 300, 125)
-        self.loadingBackground.center = self.view.center
+        self.loadingBackground.center = CGPointMake(x, y - 100)
         self.loadingBackground.layer.cornerRadius = 5
         self.loadingBackground.layer.opacity = 0.75
         

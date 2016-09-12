@@ -21,8 +21,11 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
     var currentLocation : CLPlacemark? = nil
     var locationFailed = false
     
+    var locationUpdateTimer : NSTimer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MyAssignedTableViewController.dismissAndRefresh), name: "DismissAndRefreshAssigned", object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -35,12 +38,16 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
                         print(self.employee)
                         self.getAssignedOrders()
                         self.updateCurrentLocation()
-                        NSTimer.scheduledTimerWithTimeInterval(600, target: self, selector: #selector(MyAssignedTableViewController.updateCurrentLocation), userInfo: nil, repeats: true)
+                        self.locationUpdateTimer = NSTimer.scheduledTimerWithTimeInterval(600, target: self, selector: #selector(MyAssignedTableViewController.updateCurrentLocation), userInfo: nil, repeats: true)
                     }
                 })
             }
+        } else {
+            if locationUpdateTimer != nil {
+                locationUpdateTimer.invalidate()
+                locationUpdateTimer = nil
+            }
         }
-        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -106,6 +113,11 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
         return cell
     }
     
+    func dismissAndRefresh() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        self.getAssignedOrders()
+    }
+    
     func settingsBGTapped(sender: UITapGestureRecognizer){
         if sender.state == UIGestureRecognizerState.Ended{
             guard let presentedView = presentedViewController?.view else {
@@ -116,9 +128,19 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
                 })
             }
         }
+        self.getAssignedOrders()
+    }
+    
+    @IBAction func refreshManualButton(sender: AnyObject) {
+        self.getAssignedOrders()
     }
     
     func getAssignedOrders() {
+        
+        for monitored in self.locationManager.monitoredRegions {
+            locationManager.stopMonitoringForRegion(monitored)
+        }
+        
         let timeZone = NSTimeZone(abbreviation: "UTC")
         let date = NSDate()
         let components = NSCalendar.currentCalendar().components([.Day, .Month, .Year], fromDate: date)
@@ -163,8 +185,35 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
         
         PFQuery.orQueryWithSubqueries([userQuery!, nameQuery!]).findObjectsInBackgroundWithBlock { (results : [PFObject]?, error : NSError?) in
             if error == nil {
-                self.workOrders = results! as! [WorkOrders]
-                self.tableView.reloadData()
+                if results?.count == 0 {
+                    let noAssigned = UILabel(frame: CGRectMake(0,0,self.view.bounds.size.width, self.view.bounds.size.height))
+                    noAssigned.text = "No assigned Service Orders"
+                    noAssigned.textColor = UIColor.grayColor()
+                    noAssigned.backgroundColor = UIColor.whiteColor()
+                    noAssigned.numberOfLines = 0
+                    noAssigned.textAlignment = .Center
+                    noAssigned.font = (UIFont(name: "Helvetica-Light", size: 24))
+                    noAssigned.sizeToFit()
+                    self.tableView.tableFooterView = UIView()
+                    self.tableView.backgroundView = noAssigned
+                    self.tableView.separatorStyle = .None
+                    self.tableView.scrollEnabled = false
+                } else {
+                    self.workOrders = results! as! [WorkOrders]
+                    
+                    self.tableView.tableFooterView = nil
+                    self.tableView.backgroundView = nil
+                    self.tableView.separatorStyle = .SingleLine
+                    self.tableView.scrollEnabled = true
+                    
+                    let masterTableView = self.splitViewController?.viewControllers.first?.childViewControllers.first as! MasterTableViewController
+                    print(masterTableView)
+                    
+                    masterTableView.updateCellBadge("myAssigned", count: (results!.count))
+                    
+                    let myAssignedSection = NSIndexSet(index: 1)
+                    self.tableView.reloadSections(myAssignedSection, withRowAnimation: .Automatic)
+                }
             }
         }
     }

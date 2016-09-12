@@ -17,15 +17,15 @@
                         <sections>
                             <tableViewSection id="Sh7-5O-XeN">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="myAssigned" textLabel="zdl-4g-l4g" imageView="W35-dD-xeQ" style="IBUITableViewCellStyleDefault" id="XKP-Q8-yhH" userLabel="My Assigned">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="myAssigned" textLabel="zdl-4g-l4g" imageView="W35-dD-xeQ" style="IBUITableViewCellStyleDefault" id="XKP-Q8-yhH" userLabel="My Assigned">
                                         <rect key="frame" x="0.0" y="99" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XKP-Q8-yhH" id="me8-7z-iyY">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="My Assigned" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zdl-4g-l4g">
-                                                    <rect key="frame" x="73" y="0.0" width="212" height="43"/>
+                                                    <rect key="frame" x="73" y="0.0" width="232" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -200,7 +200,13 @@
                             <outlet property="delegate" destination="GCr-RQ-5eq" id="4mW-VF-8A6"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="My Assigned" id="mrp-j7-nyo"/>
+                    <navigationItem key="navigationItem" title="My Assigned" id="mrp-j7-nyo">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="OP8-46-5EQ">
+                            <connections>
+                                <action selector="refreshManualButton:" destination="GCr-RQ-5eq" id="mNc-zy-Xad"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad-2/3"/>
                 </tableViewController>

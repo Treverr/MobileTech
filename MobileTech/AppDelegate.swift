@@ -22,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        self.registerSubclass()
+        
         let parseConfig = ParseClientConfiguration {
             $0.server = "http://insparklepools.com:1337/parse"
             $0.applicationId = "inSparkle"
@@ -69,11 +71,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         NoteObject.registerSubclass()
         ServiceObject.registerSubclass()
         LocationTracker.registerSubclass()
+        WorkOrders.registerSubclass()
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         switch CLLocationManager.authorizationStatus() {
-        case .Denied, .NotDetermined, .Restricted:
+        case .Denied, .Restricted:
             let alertController = UIAlertController(
                 title: "Roberts Gonna be PISSED",
                 message: "In order for Robert not to be pissed, open settings and set location services to 'Always'.",

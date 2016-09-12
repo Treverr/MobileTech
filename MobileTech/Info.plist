@@ -43,10 +43,12 @@
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Click allow, or Robert will be SO pissed</string>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIMainStoryboardFile~ipad</key>
-	<string>Log In</string>
+	<string>ServiceOrdersList</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
