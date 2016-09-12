@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             $0.applicationId = "inSparkle"
         }
         
+        Parse.enableLocalDatastore()
         Parse.initializeWithConfiguration(parseConfig)
         
         locationManager.delegate = self

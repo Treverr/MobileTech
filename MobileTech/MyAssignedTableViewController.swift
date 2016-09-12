@@ -102,7 +102,7 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
         
         if !self.locationFailed {
             if self.currentLocation != nil {
-                cell.travelTime.text = String(self.getETA(address, cell: cell)) + " mins"
+                self.getETA(address, cell: cell)
             } else {
                 cell.travelTime.text = "Calculating..."
             }
@@ -185,36 +185,49 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
         
         PFQuery.orQueryWithSubqueries([userQuery!, nameQuery!]).findObjectsInBackgroundWithBlock { (results : [PFObject]?, error : NSError?) in
             if error == nil {
-                if results?.count == 0 {
-                    let noAssigned = UILabel(frame: CGRectMake(0,0,self.view.bounds.size.width, self.view.bounds.size.height))
-                    noAssigned.text = "No assigned Service Orders"
-                    noAssigned.textColor = UIColor.grayColor()
-                    noAssigned.backgroundColor = UIColor.whiteColor()
-                    noAssigned.numberOfLines = 0
-                    noAssigned.textAlignment = .Center
-                    noAssigned.font = (UIFont(name: "Helvetica-Light", size: 24))
-                    noAssigned.sizeToFit()
-                    self.tableView.tableFooterView = UIView()
-                    self.tableView.backgroundView = noAssigned
-                    self.tableView.separatorStyle = .None
-                    self.tableView.scrollEnabled = false
-                } else {
-                    self.workOrders = results! as! [WorkOrders]
-                    
-                    self.tableView.tableFooterView = nil
-                    self.tableView.backgroundView = nil
-                    self.tableView.separatorStyle = .SingleLine
-                    self.tableView.scrollEnabled = true
-                    
-                    let masterTableView = self.splitViewController?.viewControllers.first?.childViewControllers.first as! MasterTableViewController
-                    print(masterTableView)
-                    
-                    masterTableView.updateCellBadge("myAssigned", count: (results!.count))
-                    
-                    let myAssignedSection = NSIndexSet(index: 1)
-                    self.tableView.reloadSections(myAssignedSection, withRowAnimation: .Automatic)
+                self.doThingsWithResults(results!)
+            } else {
+                if error?.code == 100 {
+                    userQuery?.fromLocalDatastore()
+                    userQuery?.findObjectsInBackgroundWithBlock({ (results : [PFObject]?, error : NSError?) in
+                        self.doThingsWithResults(results!)
+                    })
                 }
             }
+        }
+    }
+    
+    func doThingsWithResults(results : [PFObject]) {
+        PFObject.unpinAllObjectsInBackground()
+        PFObject.pinAllInBackground(results)
+        if results.count == 0 {
+            let noAssigned = UILabel(frame: CGRectMake(0,0,self.view.bounds.size.width, self.view.bounds.size.height))
+            noAssigned.text = "No Assigned Service Orders"
+            noAssigned.textColor = UIColor.grayColor()
+            noAssigned.backgroundColor = UIColor.whiteColor()
+            noAssigned.numberOfLines = 0
+            noAssigned.textAlignment = .Center
+            noAssigned.font = (UIFont(name: "Helvetica-Light", size: 24))
+            noAssigned.sizeToFit()
+            self.tableView.tableFooterView = UIView()
+            self.tableView.backgroundView = noAssigned
+            self.tableView.separatorStyle = .None
+            self.tableView.scrollEnabled = false
+        } else {
+            self.workOrders = results as! [WorkOrders]
+            
+            self.tableView.tableFooterView = nil
+            self.tableView.backgroundView = nil
+            self.tableView.separatorStyle = .SingleLine
+            self.tableView.scrollEnabled = true
+            
+            let masterTableView = self.splitViewController?.viewControllers.first?.childViewControllers.first as! MasterTableViewController
+            print(masterTableView)
+            
+            masterTableView.updateCellBadge("myAssigned", count: (results.count))
+            
+            let myAssignedSection = NSIndexSet(index: 1)
+            self.tableView.reloadSections(myAssignedSection, withRowAnimation: .Automatic)
         }
     }
     

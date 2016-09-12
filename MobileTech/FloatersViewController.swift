@@ -104,6 +104,7 @@ class FloatersViewController: UIViewController, CLLocationManagerDelegate {
         let notesQuery = NoteObject.query()
         notesQuery?.whereKey("relatedWorkOder", equalTo: self.workOrderObject)
         notesQuery?.orderByDescending("createdAt")
+        notesQuery?.cachePolicy = .CacheThenNetwork
         notesQuery?.findObjectsInBackgroundWithBlock({ (foundNotes : [PFObject]?, error : NSError?) in
             if error == nil {
                 self.notes = foundNotes as! [NoteObject]
