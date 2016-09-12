@@ -89,10 +89,8 @@ class SaveButtonTableViewController: UITableViewController {
             let imageFile = PFFile(name: "customerSignature.png", data: data)
             
             imageFile?.saveInBackgroundWithBlock({ (success : Bool, error : NSError?) in
-                if error == nil && success {
                     objectToSave.customerSignature = imageFile!
-                    objectToSave.saveInBackground()
-                }
+                    objectToSave.saveEventually()
             })
         }
         
@@ -103,12 +101,10 @@ class SaveButtonTableViewController: UITableViewController {
         objectToSave.relatedWorkOrder = self.floaterViewContoller.workOrderObject
         
         self.floaterViewContoller.workOrderObject.status = status
-        self.floaterViewContoller.workOrderObject.saveInBackground()
+        self.floaterViewContoller.workOrderObject.saveEventually()
         
-        objectToSave.saveInBackgroundWithBlock { (success : Bool, error : NSError?) in
-            if error == nil && success {
+        objectToSave.saveEventually { (success : Bool, error : NSError?) in
                 self.performSegueWithIdentifier("closeService", sender: nil)
-            }
         }
     }
     

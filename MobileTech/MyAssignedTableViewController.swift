@@ -293,7 +293,7 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
             loc.user = PFUser.currentUser()!
             loc.location = PFGeoPoint(location: location)
             
-            loc.saveInBackground()
+            loc.saveEventually()
         }
     }
     
@@ -310,7 +310,7 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
                     for timeFound in foundObjs! {
                         let timeObj = timeFound as! WorkServiceOrderTimeLog
                         timeObj.departed = NSDate()
-                        timeObj.saveInBackground()
+                        timeObj.saveEventually()
                     }
                 } else {
                     let timeObj = WorkServiceOrderTimeLog()
@@ -318,7 +318,7 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
                     timeObj.device = UIDevice.currentDevice().name
                     timeObj.userLoggedIn = PFUser.currentUser()!
                     timeObj.relatedWorkOrder = workOder
-                    timeObj.saveInBackground()
+                    timeObj.saveEventually()
                 }
             }
         })
@@ -330,7 +330,7 @@ extension MyAssignedTableViewController : CLLocationManagerDelegate {
     
     func updateCurrentLocation() {
         self.locationManager.delegate = self
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         self.locationManager.requestLocation()
     }
     
