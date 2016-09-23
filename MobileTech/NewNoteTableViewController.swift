@@ -61,11 +61,11 @@ class NewNoteTableViewController: UITableViewController {
             self.notes = [self.noteObject]
         }
         
-        self.noteObject.saveEventually { (success : Bool, error : NSError?) in
-                NSNotificationCenter.defaultCenter().postNotificationName("UpdateNotesNotificaiton", object: self.notes)
-                
-                self.dismissViewControllerAnimated(true, completion: nil)
-        }
+        self.noteObject.saveEventually()
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("UpdateNotesNotificaiton", object: self.notes)
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func textFieldDidChange(textField : UITextField) {

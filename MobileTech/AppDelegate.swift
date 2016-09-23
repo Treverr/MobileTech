@@ -98,3 +98,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
 }
 
+class GlobalViewControllers : NSObject {
+    
+    static var MyAssigned : MyAssignedTableViewController!
+    
+}
+

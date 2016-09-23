@@ -103,9 +103,9 @@ class SaveButtonTableViewController: UITableViewController {
         self.floaterViewContoller.workOrderObject.status = status
         self.floaterViewContoller.workOrderObject.saveEventually()
         
-        objectToSave.saveEventually { (success : Bool, error : NSError?) in
-                self.performSegueWithIdentifier("closeService", sender: nil)
-        }
+        objectToSave.saveEventually()
+        self.performSegueWithIdentifier("closeService", sender: nil)
+
     }
     
     @IBAction func saveInProgress(sender: AnyObject) {

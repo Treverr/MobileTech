@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>DVColorLockView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>IQKeyboardManagerSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -72,12 +77,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>40C08BA1BCE92090A722364A5A160293</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>5242C9E53D9BA196FD52457FAA4834C6</key>
+		<key>3FE97B562E8EDE95A29761AC600F65E8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -102,7 +102,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BAFFFC6C00FB34246463842E66A4B47A</key>
+		<key>9E3EC071F7F476F3F8190EE39C74C08A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D0FB564D07325F3329A497C7ACCFCA48</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EEB7CBAE755AC2BC9C7D805A0A712CDF</key>
 		<dict>
 			<key>primary</key>
 			<true/>

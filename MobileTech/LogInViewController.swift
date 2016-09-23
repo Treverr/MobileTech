@@ -72,10 +72,12 @@ class LogInViewController: UIViewController {
     }
     
     @IBAction func QRLogIn(notification : NSNotification) {
-        let barcode = notification.object as! String
-        let barcodeArray = barcode.componentsSeparatedByString(" ")
-        self.sparkleConnect.text = barcodeArray[0]
-        self.password.text = barcodeArray[1]
+        let code = notification.object
+        let userPass = code!.componentsSeparatedByString(" ")
+        let user = userPass[0]
+        let pass = userPass[1]
+        self.sparkleConnect.text = user
+        self.password.text = pass
         self.logIn()
     }
     
@@ -88,7 +90,23 @@ class LogInViewController: UIViewController {
             PFUser.logInWithUsernameInBackground(self.sparkleConnect.text!, password: self.password.text!, block: { (user : PFUser?, error : NSError?) in
                 if error == nil && user != nil {
                     self.loadingUI.stopAnimation()
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self.dismissViewControllerAnimated(true, completion: { 
+                        NSNotificationCenter.defaultCenter().postNotificationName("DismissAndRefreshAssigned", object: nil)
+                    })
+                } else if error != nil {
+                    switch error!.code {
+                    case 101:
+                        self.loadingUI.stopAnimation()
+                        self.loadingBackground.removeFromSuperview()
+                        self.label.removeFromSuperview()
+                        
+                        let errorAlert = UIAlertController(title: "Invalid Username or Password", message: "Please try again.", preferredStyle: .Alert)
+                        let okayButton = UIAlertAction(title: "Okay", style: .Default, handler: nil)
+                        errorAlert.addAction(okayButton)
+                        self.presentViewController(errorAlert, animated: true, completion: nil)
+                    default:
+                        break
+                    }
                 }
             })
             

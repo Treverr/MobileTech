@@ -13,6 +13,7 @@ target 'MobileTech' do
   pod 'NVActivityIndicatorView'
   pod 'Fabric'
   pod 'Crashlytics'
+  pod 'DVColorLockView', :git => 'https://github.com/DylanVann/DVColorLockView.git', :tag => 'v0.1.5'
 
   # Pods for MobileTech
 

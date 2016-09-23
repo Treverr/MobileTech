@@ -3,6 +3,7 @@ PODS:
   - Bolts/Tasks (1.8.4)
   - Crashlytics (3.8.0):
     - Fabric (~> 1.6.3)
+  - DVColorLockView (0.1.5)
   - Fabric (1.6.8)
   - IQKeyboardManagerSwift (4.0.4)
   - NVActivityIndicatorView (2.10)
@@ -18,6 +19,7 @@ PODS:
 
 DEPENDENCIES:
   - Crashlytics
+  - DVColorLockView (from `https://github.com/DylanVann/DVColorLockView.git`, tag `v0.1.5`)
   - Fabric
   - IQKeyboardManagerSwift
   - NVActivityIndicatorView
@@ -26,10 +28,21 @@ DEPENDENCIES:
   - RSBarcodes_Swift
   - SwiftSignatureView
 
+EXTERNAL SOURCES:
+  DVColorLockView:
+    :git: https://github.com/DylanVann/DVColorLockView.git
+    :tag: v0.1.5
+
+CHECKOUT OPTIONS:
+  DVColorLockView:
+    :git: https://github.com/DylanVann/DVColorLockView.git
+    :tag: v0.1.5
+
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   Bolts-Swift: ac4e7d26719ed0f73aa85b9310da1648105fbde3
   Crashlytics: 8601d9c74a4c4d28f3e7f408bf4c0e490c70e8b4
+  DVColorLockView: 79c4901b03fc8ad18d660f55e9087d980363b7cd
   Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
   IQKeyboardManagerSwift: e0964d04d6a29b71016fd346dca13ecb80a2823a
   NVActivityIndicatorView: 5568608c3511690a42c4dd02f7a1de4361d670ae
@@ -39,6 +52,6 @@ SPEC CHECKSUMS:
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   SwiftSignatureView: cd9c46de49f675d613000164bccbc8d3be1df357
 
-PODFILE CHECKSUM: 80f9971aa42ec52dcc0b81a5d97b7a9692ef5c1a
+PODFILE CHECKSUM: 718e9b2cb3daf20970a5a33280fb8456edb1f0ee
 
 COCOAPODS: 1.0.1

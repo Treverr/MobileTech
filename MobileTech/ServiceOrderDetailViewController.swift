@@ -41,30 +41,38 @@ class ServiceOrderDetailViewController: UIViewController {
     }
     
     @IBAction func openServiceMain(sender: AnyObject) {
-        let checkForPrevious = ServiceObject.query()
-        checkForPrevious?.whereKey("relatedWorkOrder", equalTo: self.serviceObject)
-        checkForPrevious?.orderByDescending("createdAt")
-        checkForPrevious?.findObjectsInBackgroundWithBlock({ (foundPrevious : [PFObject]?, error : NSError?) in
-            if error == nil {
-                if foundPrevious?.count == 0 {
-                    let sb = UIStoryboard(name: "Main", bundle: nil)
-                    let vc = sb.instantiateViewControllerWithIdentifier("serviceMain") as! ServiceMainViewController
-                    vc.serviceOrderObject = ServiceObject()
-                    print(self.serviceObject)
-                    vc.workOrderObject = self.serviceObject
-                    
-                    self.presentViewController(vc, animated: true, completion: nil)
-                } else {
-                    let sb = UIStoryboard(name: "Main", bundle: nil)
-                    let vc = sb.instantiateViewControllerWithIdentifier("serviceMain") as! ServiceMainViewController
-                    vc.serviceOrderObject = ServiceObject()
-                    let previousObjs = foundPrevious as! [ServiceObject]
-                    vc.serviceOrderObject.relatedService = previousObjs
-                    vc.workOrderObject = self.serviceObject
-                    self.presentViewController(vc, animated: true, completion: nil)
-                }
-            }
-        })
+//        let checkForPrevious = ServiceObject.query()
+//        checkForPrevious?.whereKey("relatedWorkOrder", equalTo: self.serviceObject)
+//        checkForPrevious?.orderByDescending("createdAt")
+//        checkForPrevious?.findObjectsInBackgroundWithBlock({ (foundPrevious : [PFObject]?, error : NSError?) in
+//            if error == nil {
+//                if foundPrevious?.count == 0 {
+//                    let sb = UIStoryboard(name: "Main", bundle: nil)
+//                    let vc = sb.instantiateViewControllerWithIdentifier("serviceMain") as! ServiceMainViewController
+//                    vc.serviceOrderObject = ServiceObject()
+//                    print(self.serviceObject)
+//                    vc.workOrderObject = self.serviceObject
+//                    
+//                    self.presentViewController(vc, animated: true, completion: nil)
+//                } else {
+//                    let sb = UIStoryboard(name: "Main", bundle: nil)
+//                    let vc = sb.instantiateViewControllerWithIdentifier("serviceMain") as! ServiceMainViewController
+//                    vc.serviceOrderObject = ServiceObject()
+//                    let previousObjs = foundPrevious as! [ServiceObject]
+//                    vc.serviceOrderObject.relatedService = previousObjs
+//                    vc.workOrderObject = self.serviceObject
+//                    self.presentViewController(vc, animated: true, completion: nil)
+//                }
+//            }
+//        })
+        
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        let vc = sb.instantiateViewControllerWithIdentifier("serviceMain") as! ServiceMainViewController
+        vc.serviceOrderObject = ServiceObject()
+        print(self.serviceObject)
+        vc.workOrderObject = self.serviceObject
+        
+        self.presentViewController(vc, animated: true, completion: nil)
     }
     
     @IBOutlet weak var getDirections: UIButton!
