@@ -1,0 +1,21 @@
+{
+  "name": "DVColorLockView",
+  "version": "0.1.5",
+  "summary": "UITableViewCell highlighting does not change the color of DVColorLockViews.",
+  "homepage": "https://github.com/DylanVann/DVColorLockView",
+  "license": "MIT",
+  "authors": {
+    "Dylan Vann": "dylan.vann@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/DylanVann/DVColorLockView.git",
+    "tag": "v0.1.5"
+  },
+  "social_media_url": "https://twitter.com/atomarranger",
+  "platforms": {
+    "ios": "8.0"
+  },
+  "requires_arc": true,
+  "source_files": "DVColorLockView.swift",
+  "frameworks": "UIKit"
+}

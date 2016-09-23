@@ -282,20 +282,21 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
                     let directions = MKDirections(request: request)
                     directions.calculateETAWithCompletionHandler { (response : MKETAResponse?, error : NSError?) in
                         print(response?.expectedTravelTime)
-                        let travelTime = Int(response!.expectedTravelTime) / 60
-                        if travelTime > 60 {
-                            let hour = Int(travelTime / 60)
-                            let minutes = Int(travelTime - (hour * 60))
-                            if hour > 1 {
-                                cell.travelTime.text! = String(hour) + " hrs " + String(minutes) + " mins"
+                        if response != nil {
+                            let travelTime = Int(response!.expectedTravelTime) / 60
+                            if travelTime > 60 {
+                                let hour = Int(travelTime / 60)
+                                let minutes = Int(travelTime - (hour * 60))
+                                if hour > 1 {
+                                    cell.travelTime.text! = String(hour) + " hrs " + String(minutes) + " mins"
+                                } else {
+                                    cell.travelTime.text! = String(hour) + " hr " + String(minutes) + " mins"
+                                }
+                                
                             } else {
-                                cell.travelTime.text! = String(hour) + " hr " + String(minutes) + " mins"
+                                cell.travelTime.text = String((Int(response!.expectedTravelTime)) / 60) + " mins"
                             }
-                            
-                        } else {
-                            cell.travelTime.text = String((Int(response!.expectedTravelTime)) / 60) + " mins"
                         }
-                        
                     }
                 }
             }
@@ -335,7 +336,8 @@ extension MyAssignedTableViewController : CLLocationManagerDelegate {
     func updateCurrentLocation() {
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        self.locationManager.requestLocation()
+        self.locationManager.distanceFilter = 100
+        self.locationManager.startUpdatingLocation()
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -343,6 +345,7 @@ extension MyAssignedTableViewController : CLLocationManagerDelegate {
             if let placemarks = placemarks {
                 let placemark = placemarks[0]
                 self.currentLocation = placemark
+                self.logLocation(locations.last!)
                 self.tableView.reloadData()
             }
         }

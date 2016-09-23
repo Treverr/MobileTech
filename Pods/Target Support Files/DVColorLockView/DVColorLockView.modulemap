@@ -1,0 +1,6 @@
+framework module DVColorLockView {
+  umbrella header "DVColorLockView-umbrella.h"
+
+  export *
+  module * { export * }
+}
