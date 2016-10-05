@@ -17,7 +17,8 @@ class LogOutViewController: UIViewController {
         PFUser.logOutInBackgroundWithBlock { (error : NSError?) in
             if error == nil {
                 let logInVC = UIStoryboard(name: "Log In", bundle: nil).instantiateViewControllerWithIdentifier("logInViewController")
-                self.dismissViewControllerAnimated(true, completion: { 
+                self.dismissViewControllerAnimated(true, completion: {
+                    GlobalViewControllers.MyAssigned.workOrders = []
                     GlobalViewControllers.MyAssigned.presentViewController(logInVC, animated: true, completion: nil)
                 })
             }

@@ -90,7 +90,10 @@ class LogInViewController: UIViewController {
             PFUser.logInWithUsernameInBackground(self.sparkleConnect.text!, password: self.password.text!, block: { (user : PFUser?, error : NSError?) in
                 if error == nil && user != nil {
                     self.loadingUI.stopAnimation()
-                    self.dismissViewControllerAnimated(true, completion: { 
+                    self.dismissViewControllerAnimated(true, completion: {
+                        let cal = NSCalendar.currentCalendar()
+                        let startOfTomorrow = cal.startOfDayForDate(NSDate().dateByAddingTimeInterval(60*60*24*1))
+                        NSUserDefaults.standardUserDefaults().setObject(startOfTomorrow, forKey: "autoLogOutDate")
                         NSNotificationCenter.defaultCenter().postNotificationName("DismissAndRefreshAssigned", object: nil)
                     })
                 } else if error != nil {

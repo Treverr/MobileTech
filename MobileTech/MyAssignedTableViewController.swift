@@ -204,6 +204,7 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
     
     func doThingsWithResults(results : [PFObject]) {
         if results.count == 0 {
+            self.workOrders = []
             let noAssigned = UILabel(frame: CGRectMake(0,0,self.view.bounds.size.width, self.view.bounds.size.height))
             noAssigned.text = "No Assigned Service Orders"
             noAssigned.textColor = UIColor.grayColor()
@@ -311,6 +312,7 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
     func logLocation(location : CLLocation) {
         if PFUser.currentUser() != nil {
             let loc = LocationTracker()
+            loc.timeStamp = location.timestamp
             loc.device = UIDevice.currentDevice().name
             loc.user = PFUser.currentUser()!
             loc.location = PFGeoPoint(location: location)
@@ -337,7 +339,7 @@ extension MyAssignedTableViewController : CLLocationManagerDelegate {
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         self.locationManager.distanceFilter = 100
-        self.locationManager.startUpdatingLocation()
+        self.locationManager.startMonitoringSignificantLocationChanges()
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -356,7 +358,6 @@ extension MyAssignedTableViewController : CLLocationManagerDelegate {
     }
     
     func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        print(region.identifier)
         self.saveTimeLog(region.identifier, enter: true)
     }
     
