@@ -61,7 +61,7 @@ class MasterTableViewController: UITableViewController {
         if count > 0 {
             cellToBadge.accessoryView = label
         } else {
-            cellToBadge.accessoryType = .None
+            cellToBadge.accessoryView = .None
         }
     }
     

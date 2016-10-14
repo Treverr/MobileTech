@@ -78,7 +78,7 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
         case 0:
             return "Priority"
         case 1:
-            return "Assigned"
+            return "To Do"
         default:
             return ""
         }
@@ -172,26 +172,21 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
         end.second = 59
         let endOfToday = NSCalendar.currentCalendar().dateFromComponents(end)
         
-        let userQuery = WorkOrders.query()
-        userQuery!.whereKey("technicianPointer", equalTo: self.employee)
-        userQuery!.whereKey("date", greaterThanOrEqualTo: startOfToday!)
-        userQuery!.whereKey("date", lessThanOrEqualTo: endOfToday!)
-        userQuery!.whereKey("status", notEqualTo: "Completed")
-        
+        let statuses : [String] = ["New", "In Progress", "On Hold", "Assigned"]
         let name = self.employee.firstName.capitalizedString + " " + self.employee.lastName.capitalizedString
-        let nameQuery = WorkOrders.query()
-        nameQuery!.whereKey("technician", equalTo: name)
-        nameQuery!.whereKey("status", equalTo: "Assigned")
-        nameQuery!.whereKey("date", greaterThanOrEqualTo: startOfToday!)
-        nameQuery!.whereKey("date", lessThanOrEqualTo: endOfToday!)
-        nameQuery!.whereKey("status", notEqualTo: "Completed")
         
-        let previousQuery = WorkOrders.query()
-        previousQuery?.whereKey("technicianPointer", equalTo: self.employee)
-        previousQuery?.whereKey("date", lessThan: startOfToday!)
-        previousQuery?.whereKey("status", equalTo: "In Progress")
+        let nameQuery = WorkOrders.query()!
+        nameQuery.whereKey("technician", equalTo: name)
+        nameQuery.whereKey("date", lessThanOrEqualTo: endOfToday!)
+        nameQuery.whereKey("status", containedIn: statuses)
         
-        PFQuery.orQueryWithSubqueries([userQuery!, nameQuery!, previousQuery!]).findObjectsInBackgroundWithBlock { (results : [PFObject]?, error : NSError?) in
+        let pointerQuery = WorkOrders.query()!
+        pointerQuery.whereKey("status", containedIn: statuses)
+        pointerQuery.whereKey("date", lessThanOrEqualTo: endOfToday!)
+        pointerQuery.whereKey("technicianPointer", equalTo: self.employee)
+
+        
+        PFQuery.orQueryWithSubqueries([pointerQuery, nameQuery]).findObjectsInBackgroundWithBlock { (results : [PFObject]?, error : NSError?) in
             if error == nil {
                 self.doThingsWithResults(results!)
             } else {
@@ -220,6 +215,10 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
             
             let myAssignedSection = NSIndexSet(index: 1)
             self.tableView.reloadSections(myAssignedSection, withRowAnimation: .Automatic)
+            
+            let masterTableView = self.splitViewController?.viewControllers.first?.childViewControllers.first as! MasterTableViewController
+            masterTableView.updateCellBadge("myAssigned", count: (results.count))
+            
         } else {
             self.workOrders = results as! [WorkOrders]
             
