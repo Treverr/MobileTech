@@ -124,20 +124,20 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
     
     @IBAction func refreshManualButton(sender: AnyObject) {
         if PFUser.currentUser() != nil {
-                PFUser.currentUser()?.objectForKey("employee")?.fetchInBackgroundWithBlock({ (emp : PFObject?, error : NSError?) in
-                    if error == nil {
-                        self.employee = emp as! Employee
-                        print(self.employee)
-                        self.getAssignedOrders()
-                        self.updateCurrentLocation()
-                    } else {
-                        let errorAlert = UIAlertController(title: "Error", message: "Unable to refresh at this time, check the network connectiona and try again. If the issue persists contact IS&T.", preferredStyle: .Alert)
-                        let cancel = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
-                        errorAlert.addAction(cancel)
-                        self.presentViewController(errorAlert, animated: true, completion: nil)
-                    }
-                })
-            }
+            PFUser.currentUser()?.objectForKey("employee")?.fetchInBackgroundWithBlock({ (emp : PFObject?, error : NSError?) in
+                if error == nil {
+                    self.employee = emp as! Employee
+                    print(self.employee)
+                    self.getAssignedOrders()
+                    self.updateCurrentLocation()
+                } else {
+                    let errorAlert = UIAlertController(title: "Error", message: "Unable to refresh at this time, check the network connectiona and try again. If the issue persists contact IS&T.", preferredStyle: .Alert)
+                    let cancel = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
+                    errorAlert.addAction(cancel)
+                    self.presentViewController(errorAlert, animated: true, completion: nil)
+                }
+            })
+        }
     }
     
     func getAssignedOrders() {
@@ -184,7 +184,7 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
         pointerQuery.whereKey("status", containedIn: statuses)
         pointerQuery.whereKey("date", lessThanOrEqualTo: endOfToday!)
         pointerQuery.whereKey("technicianPointer", equalTo: self.employee)
-
+        
         
         PFQuery.orQueryWithSubqueries([pointerQuery, nameQuery]).findObjectsInBackgroundWithBlock { (results : [PFObject]?, error : NSError?) in
             if error == nil {
@@ -309,15 +309,12 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
     }
     
     func logLocation(location : CLLocation) {
-        if PFUser.currentUser() != nil {
-            let loc = LocationTracker()
-            loc.timeStamp = location.timestamp
-            loc.device = UIDevice.currentDevice().name
-            loc.user = PFUser.currentUser()!
-            loc.location = PFGeoPoint(location: location)
-            
-            loc.saveEventually()
-        }
+        let loc = LocationTracker()
+        loc.timeStamp = location.timestamp
+        loc.device = UIDevice.currentDevice().name
+        loc.user = PFUser.currentUser()!
+        loc.location = PFGeoPoint(location: location)
+        loc.saveEventually()
     }
     
     func saveTimeLog(workOderObjectID : String, enter : Bool) {
