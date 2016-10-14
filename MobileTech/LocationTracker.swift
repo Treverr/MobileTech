@@ -25,9 +25,9 @@ class LocationTracker: PFObject, PFSubclassing {
         set { setObject(newValue, forKey: "device") }
     }
     
-    var user : PFUser {
-        get {return objectForKey("user") as! PFUser}
-        set { setObject(newValue, forKey: "user") }
+    var user : PFUser? {
+        get {return objectForKey("user") as? PFUser}
+        set { setObject(newValue!, forKey: "user") }
     }
     
     var location : PFGeoPoint {
