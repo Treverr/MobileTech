@@ -274,6 +274,8 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
                     let center = MKPlacemark(placemark: place).coordinate
                     let geoFence = CLCircularRegion(center: center, radius: 100, identifier: identifier!)
                     
+                    print(self.locationManager.monitoredRegions)
+                    
                     self.locationManager.startMonitoringForRegion(geoFence)
                     
                     request.source = mkMapItem
@@ -312,7 +314,7 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
         let loc = LocationTracker()
         loc.timeStamp = location.timestamp
         loc.device = UIDevice.currentDevice().name
-        loc.user = PFUser.currentUser()!
+        loc.user = PFUser.currentUser()
         loc.location = PFGeoPoint(location: location)
         loc.saveEventually()
     }
@@ -335,7 +337,7 @@ extension MyAssignedTableViewController : CLLocationManagerDelegate {
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         self.locationManager.distanceFilter = 100
-        self.locationManager.startMonitoringSignificantLocationChanges()
+        self.locationManager.requestLocation()
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

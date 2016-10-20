@@ -12,12 +12,14 @@ import CoreLocation
 import IQKeyboardManagerSwift
 import Fabric
 import Crashlytics
+import AVFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
     
     var window: UIWindow?
     var locationManager = CLLocationManager()
+    var player : AVAudioPlayer!
     
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -36,8 +38,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         switch CLLocationManager.authorizationStatus() {
         case .NotDetermined:
             locationManager.requestAlwaysAuthorization()
+        case .AuthorizedAlways:
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            self.locationManager.distanceFilter = 100
+            self.locationManager.startUpdatingLocation()
         default:
             break
+        }
+        
+        // Enable this for silent background audio to keep the app alive
+        let path = NSBundle.mainBundle().pathForResource("silence", ofType: "wav")!
+        let audioURL = NSURL(fileURLWithPath: path)
+        
+        do {
+            player = try AVAudioPlayer(contentsOfURL: audioURL)
+            player.numberOfLoops = (-1)
+            player.prepareToPlay()
+        } catch {
+            
+        }
+        
+        let session : AVAudioSession = AVAudioSession.sharedInstance()
+        
+        do {
+            try session.setCategory(AVAudioSessionCategoryPlayback)
+        } catch {
+            
         }
         
         IQKeyboardManager.sharedManager().disabledDistanceHandlingClasses.append(LogInViewController.self)
@@ -107,6 +133,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
     }
     
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            
+            let loc = LocationTracker()
+            loc.timeStamp = location.timestamp
+            loc.device = UIDevice.currentDevice().name
+            if PFUser.currentUser() != nil {
+                loc.user = PFUser.currentUser()
+            }
+            loc.location = PFGeoPoint(location: location)
+            loc.saveEventually()
+        }
+    }
 }
 
 class GlobalViewControllers : NSObject {

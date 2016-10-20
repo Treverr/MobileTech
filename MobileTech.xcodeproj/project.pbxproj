@@ -17,6 +17,7 @@
 		C958C5101D726C0400437B22 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C958C50E1D726C0400437B22 /* Main.storyboard */; };
 		C958C5121D726C0400437B22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C958C5111D726C0400437B22 /* Assets.xcassets */; };
 		C958C5151D726C0400437B22 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C958C5131D726C0400437B22 /* LaunchScreen.storyboard */; };
+		C97FA3911DB7B877002097CC /* silence.wav in Resources */ = {isa = PBXBuildFile; fileRef = C97FA3901DB7B877002097CC /* silence.wav */; };
 		C99D49F41D7274E000D39033 /* ServiceMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99D49F31D7274E000D39033 /* ServiceMainViewController.swift */; };
 		C9B38D851D7FD573001745C0 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B38D841D7FD573001745C0 /* LaunchViewController.swift */; };
 		C9B5B04F1D7DCA6500EA04D1 /* LocationTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B5B04E1D7DCA6500EA04D1 /* LocationTracker.swift */; };
@@ -53,6 +54,7 @@
 		C958C5111D726C0400437B22 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C958C5141D726C0400437B22 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C958C5161D726C0400437B22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C97FA3901DB7B877002097CC /* silence.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = silence.wav; sourceTree = "<group>"; };
 		C99D49F31D7274E000D39033 /* ServiceMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceMainViewController.swift; sourceTree = "<group>"; };
 		C9B38D841D7FD573001745C0 /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		C9B5B04E1D7DCA6500EA04D1 /* LocationTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTracker.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				C9DCE2D31D7652FB0091DAA4 /* Service Order List */,
 				C9DCE2C91D75FAAC0091DAA4 /* Main Service Screen */,
 				C958C50A1D726C0400437B22 /* AppDelegate.swift */,
+				C97FA3901DB7B877002097CC /* silence.wav */,
 				C9DCE2C81D75FA940091DAA4 /* Floater Panels */,
 				C958C5111D726C0400437B22 /* Assets.xcassets */,
 				C958C5131D726C0400437B22 /* LaunchScreen.storyboard */,
@@ -276,6 +279,7 @@
 			files = (
 				C9DCE2D51D76540E0091DAA4 /* ServiceOrderList.xcassets in Resources */,
 				C9062D511D77CE4C002D0D0F /* LogIn.xcassets in Resources */,
+				C97FA3911DB7B877002097CC /* silence.wav in Resources */,
 				C958C5151D726C0400437B22 /* LaunchScreen.storyboard in Resources */,
 				C958C5121D726C0400437B22 /* Assets.xcassets in Resources */,
 				C9CA5F1A1D7729B9007D6C0D /* Log In.storyboard in Resources */,
