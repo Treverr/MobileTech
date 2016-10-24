@@ -61,10 +61,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         let session : AVAudioSession = AVAudioSession.sharedInstance()
         
         do {
-            try session.setCategory(AVAudioSessionCategoryPlayback)
+            try session.setCategory(AVAudioSessionCategoryPlayback, withOptions: .MixWithOthers)
+            try AVAudioSession.sharedInstance().setActive(true)
         } catch {
             
         }
+        
+        player.play()
         
         IQKeyboardManager.sharedManager().disabledDistanceHandlingClasses.append(LogInViewController.self)
         IQKeyboardManager.sharedManager().enable = true
@@ -88,17 +91,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func applicationDidBecomeActive(application: UIApplication) {
         
-        if let date = NSUserDefaults.standardUserDefaults().objectForKey("autoLogOutDate") as? NSDate {
-            if date.isLessThanDate(NSDate()) {
-                PFUser.logOutInBackgroundWithBlock({ (error : NSError?) in
-                    if error == nil {
-                        let sb = UIStoryboard(name: "Log In", bundle: nil)
-                        let vc = sb.instantiateViewControllerWithIdentifier("logInViewController")
-                        GlobalViewControllers.MyAssigned.presentViewController(vc, animated: true, completion: nil)
-                    }
-                })
-            }
-        }
+//        if let date = NSUserDefaults.standardUserDefaults().objectForKey("autoLogOutDate") as? NSDate {
+//            if date.isLessThanDate(NSDate()) {
+//                PFUser.logOutInBackgroundWithBlock({ (error : NSError?) in
+//                    if error == nil {
+//                        let sb = UIStoryboard(name: "Log In", bundle: nil)
+//                        let vc = sb.instantiateViewControllerWithIdentifier("logInViewController")
+//                        GlobalViewControllers.MyAssigned.presentViewController(vc, animated: true, completion: nil)
+//                    }
+//                })
+//            }
+//        }
+        
     }
     
     func applicationWillTerminate(application: UIApplication) {
@@ -135,15 +139,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
-            
-            let loc = LocationTracker()
-            loc.timeStamp = location.timestamp
-            loc.device = UIDevice.currentDevice().name
-            if PFUser.currentUser() != nil {
-                loc.user = PFUser.currentUser()
+            if location.horizontalAccuracy < 20 {
+                let loc = LocationTracker()
+                loc.timeStamp = location.timestamp
+                loc.device = UIDevice.currentDevice().name
+                if PFUser.currentUser() != nil {
+                    loc.user = PFUser.currentUser()
+                }
+                loc.location = PFGeoPoint(location: location)
+                loc.saveEventually()
             }
-            loc.location = PFGeoPoint(location: location)
-            loc.saveEventually()
         }
     }
 }
