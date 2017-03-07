@@ -8,6 +8,30 @@
 
 import UIKit
 import Parse
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l <= r
+  default:
+    return !(rhs < lhs)
+  }
+}
+
 
 class MasterTableViewController: UITableViewController {
     
@@ -17,17 +41,17 @@ class MasterTableViewController: UITableViewController {
         let view = UIView()
         self.tableView.tableFooterView = view
         
-        self.tableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: .None)
+        self.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .none)
     }
     
-    override func viewDidAppear(animated: Bool) {
-        if PFUser.currentUser() == nil {
-            let logInView = UIStoryboard(name: "Log In", bundle: nil).instantiateViewControllerWithIdentifier("logInViewController")
-            self.presentViewController(logInView, animated: true, completion: nil)
+    override func viewDidAppear(_ animated: Bool) {
+        if PFUser.current() == nil {
+            let logInView = UIStoryboard(name: "Log In", bundle: nil).instantiateViewController(withIdentifier: "logInViewController")
+            self.present(logInView, animated: true, completion: nil)
         }
     }
     
-    func updateCellBadge(cellIdentifier : String, count : Int) {
+    func updateCellBadge(_ cellIdentifier : String, count : Int) {
         let cells = self.tableView.visibleCells
         var cellToBadge : UITableViewCell!
         
@@ -37,14 +61,14 @@ class MasterTableViewController: UITableViewController {
             }
         }
         
-        let indexPath = self.tableView.indexPathForCell(cellToBadge)
+        let indexPath = self.tableView.indexPath(for: cellToBadge)
         
         let label = UILabel()
         let fontSize : CGFloat = 14
-        label.font = UIFont.systemFontOfSize(fontSize)
-        label.textAlignment = .Center
-        label.textColor = UIColor.whiteColor()
-        label.backgroundColor = UIColor.redColor()
+        label.font = UIFont.systemFont(ofSize: fontSize)
+        label.textAlignment = .center
+        label.textColor = UIColor.white
+        label.backgroundColor = UIColor.red
         label.text = String(count)
         label.sizeToFit()
         
@@ -56,18 +80,18 @@ class MasterTableViewController: UITableViewController {
         label.layer.cornerRadius = frame.size.height / 2.0
         label.clipsToBounds = true
         
-        cellToBadge = self.tableView.cellForRowAtIndexPath(indexPath!)
+        cellToBadge = self.tableView.cellForRow(at: indexPath!)
         print(cellToBadge)
         if count > 0 {
             cellToBadge.accessoryView = label
         } else {
-            cellToBadge.accessoryView = .None
+            cellToBadge.accessoryView = .none
         }
     }
     
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath == NSIndexPath(forRow: 0, inSection: 0) {
-            cell.selected = true
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath == IndexPath(row: 0, section: 0) {
+            cell.isSelected = true
         }
     }
     

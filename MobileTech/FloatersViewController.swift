@@ -51,10 +51,10 @@ class FloatersViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FloatersViewController.updateNotes(_:)), name: "UpdateNotesNotificaiton", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(FloatersViewController.updateNotes(_:)), name: NSNotification.Name(rawValue: "UpdateNotesNotificaiton"), object: nil)
         
-        self.acceptSigButton.tintColor = UIColor.grayColor()
-        captureSignatureNavigationItem.rightBarButtonItem?.enabled = false
+        self.acceptSigButton.tintColor = UIColor.gray
+        captureSignatureNavigationItem.rightBarButtonItem?.isEnabled = false
         
         
         notesTableView.delegate = self
@@ -64,25 +64,25 @@ class FloatersViewController: UIViewController, CLLocationManagerDelegate {
         partsTableView.dataSource = self
         
         signaturePanel.delegate = self
-        signaturePanel.backgroundColor = UIColor.whiteColor()
-        signaturePanel.strokeColor = UIColor.blueColor()
+        signaturePanel.backgroundColor = UIColor.white
+        signaturePanel.strokeColor = UIColor.blue
         signaturePanel.strokeAlpha = 1
         
         for view in shadowViews {
             view.layer.bounds = notesView.layer.bounds
             view.frame = notesView.frame
-            view.layer.shadowOffset = CGSizeZero
+            view.layer.shadowOffset = CGSize.zero
             view.layer.shadowOpacity = 0.6
             view.layer.shadowRadius = 15
-            view.layer.shadowPath = UIBezierPath(rect: notesView.bounds).CGPath
+            view.layer.shadowPath = UIBezierPath(rect: notesView.bounds).cgPath
         }
         
         signatureShadow.layer.bounds = signatureView.layer.bounds
         signatureShadow.frame = signatureView.frame
-        signatureShadow.layer.shadowOffset = CGSizeZero
+        signatureShadow.layer.shadowOffset = CGSize.zero
         signatureShadow.layer.shadowOpacity = 0.6
         signatureShadow.layer.shadowRadius = 15
-        signatureShadow.layer.shadowPath = UIBezierPath(rect: signatureView.bounds).CGPath
+        signatureShadow.layer.shadowPath = UIBezierPath(rect: signatureView.bounds).cgPath
         
         for view in roundedCorners {
             view.layer.cornerRadius = 5
@@ -100,12 +100,12 @@ class FloatersViewController: UIViewController, CLLocationManagerDelegate {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         let notesQuery = NoteObject.query()
         notesQuery?.whereKey("relatedWorkOder", equalTo: self.workOrderObject)
-        notesQuery?.orderByDescending("createdAt")
-        notesQuery?.cachePolicy = .CacheThenNetwork
-        notesQuery?.findObjectsInBackgroundWithBlock({ (foundNotes : [PFObject]?, error : NSError?) in
+        notesQuery?.order(byDescending: "createdAt")
+        notesQuery?.cachePolicy = .cacheThenNetwork
+        notesQuery?.findObjectsInBackground(block: { (foundNotes, error) in
             if error == nil {
                 self.notes = foundNotes as! [NoteObject]
                 self.notesTableView.reloadData()
@@ -113,60 +113,60 @@ class FloatersViewController: UIViewController, CLLocationManagerDelegate {
         })
     }
     
-    @IBAction func clearSignature(sender: AnyObject) {
+    @IBAction func clearSignature(_ sender: AnyObject) {
         signaturePanel.clear()
         signatureImage = nil
-        self.acceptSigButton.tintColor = UIColor.grayColor()
-        self.acceptSigButton.enabled = false
+        self.acceptSigButton.tintColor = UIColor.gray
+        self.acceptSigButton.isEnabled = false
     }
     
-    @IBAction func acceptSigAction(sender: AnyObject) {
+    @IBAction func acceptSigAction(_ sender: AnyObject) {
         self.signatureImage = signaturePanel.signature
         print(self.signatureImage)
-        acceptSigButton.tintColor = UIColor.grayColor()
-        captureSignatureNavigationItem.rightBarButtonItem?.enabled = false
+        acceptSigButton.tintColor = UIColor.gray
+        captureSignatureNavigationItem.rightBarButtonItem?.isEnabled = false
         
         print("Captured")
     }
     
-    func updateNotes(notification : NSNotification) {
+    func updateNotes(_ notification : Notification) {
         self.notes = notification.object as! [NoteObject]
         self.noteAdded = true
         self.notesTableView.reloadData()
     }
     
-    @IBAction func overrideSignature(sender: AnyObject) {
-        if overrideSignature.selected {
-            self.overrideSignature.selected = false
+    @IBAction func overrideSignature(_ sender: AnyObject) {
+        if overrideSignature.isSelected {
+            self.overrideSignature.isSelected = false
         } else {
-            self.overrideSignature.selected = true
+            self.overrideSignature.isSelected = true
         }
         
         self.clearSignature(self)
         
     }
     
-    @IBAction func editButtonAction(sender: AnyObject) {
+    @IBAction func editButtonAction(_ sender: AnyObject) {
         if partsTableView.visibleCells.count > 1 {
             self.partsTableView.setEditing(true, animated: true)
-            let doneButton = UIBarButtonItem(title: "Done", style: .Done, target: nil, action: #selector(FloatersViewController.doneEditingParts))
+            let doneButton = UIBarButtonItem(title: "Done", style: .done, target: nil, action: #selector(FloatersViewController.doneEditingParts))
             self.partNavItem.leftBarButtonItem = doneButton
         }
     }
     
     func doneEditingParts() {
-        if partsTableView.editing {
+        if partsTableView.isEditing {
             self.partsTableView.setEditing(false, animated: true)
-            let editButton = UIBarButtonItem(title: "Edit", style: .Plain, target: nil, action: #selector(FloatersViewController.editButtonAction))
+            let editButton = UIBarButtonItem(title: "Edit", style: .plain, target: nil, action: #selector(FloatersViewController.editButtonAction))
             self.partNavItem.leftBarButtonItem = editButton
         }
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if tableView == partsTableView {
             self.partsTableView.beginUpdates()
-            self.partsTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-            self.parts.removeAtIndex(indexPath.row - 1)
+            self.partsTableView.deleteRows(at: [indexPath], with: .automatic)
+            self.parts.remove(at: indexPath.row - 1)
             self.partsTableView.endUpdates()
             print(self.parts)
         }
@@ -176,7 +176,7 @@ class FloatersViewController: UIViewController, CLLocationManagerDelegate {
 
 extension FloatersViewController : UITableViewDelegate, UITableViewDataSource {
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         var number = 1
         
         if tableView == notesTableView {
@@ -190,7 +190,7 @@ extension FloatersViewController : UITableViewDelegate, UITableViewDataSource {
         return number
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var number = 0
         
         if tableView == notesTableView {
@@ -204,21 +204,21 @@ extension FloatersViewController : UITableViewDelegate, UITableViewDataSource {
         return number
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell : UITableViewCell!
         
         if tableView == notesTableView {
-            cell = self.notesTableView.dequeueReusableCellWithIdentifier("notesCell") as UITableViewCell!
+            cell = self.notesTableView.dequeueReusableCell(withIdentifier: "notesCell") as UITableViewCell!
             cell.textLabel!.text = self.notes![indexPath.section].noteContent
         }
         
         if tableView == partsTableView {
             if indexPath.row == 0 {
-                cell = self.partsTableView.dequeueReusableCellWithIdentifier("addPart")! as UITableViewCell
+                cell = self.partsTableView.dequeueReusableCell(withIdentifier: "addPart")! as UITableViewCell
             }
             
             if indexPath.row > 0 {
-                cell = self.partsTableView.dequeueReusableCellWithIdentifier("partsCell")! as UITableViewCell
+                cell = self.partsTableView.dequeueReusableCell(withIdentifier: "partsCell")! as UITableViewCell
                 cell.textLabel?.text = self.parts[indexPath.row - 1]
             }
         }
@@ -226,7 +226,7 @@ extension FloatersViewController : UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         if tableView == notesTableView {
             var title = ""
@@ -240,17 +240,17 @@ extension FloatersViewController : UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
     
-    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addNewNote" {
-            let vc = segue.destinationViewController.childViewControllers.first as! NewNoteTableViewController
+            let vc = segue.destination.childViewControllers.first as! NewNoteTableViewController
             vc.relatedObj = self.serviceObject
             vc.relatedWorkOrder = self.workOrderObject
             if self.notes != nil {
@@ -260,33 +260,33 @@ extension FloatersViewController : UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         if tableView == partsTableView {
             if indexPath.row == 0 {
                 var text : String
                 var partTextField = UITextField()
-                let alert = UIAlertController(title: "Add Part", message: nil, preferredStyle: .Alert)
-                alert.addTextFieldWithConfigurationHandler({ (textField) in
+                let alert = UIAlertController(title: "Add Part", message: nil, preferredStyle: .alert)
+                alert.addTextField(configurationHandler: { (textField) in
                     textField.placeholder = "Part Number or description"
                 })
-                let addAction = UIAlertAction(title: "Add", style: .Default, handler: { (action) in
+                let addAction = UIAlertAction(title: "Add", style: .default, handler: { (action) in
                     self.partsTableView.beginUpdates()
-                    let indexToInsert = NSIndexPath(forRow: self.parts.count + 1, inSection: 0)
+                    let indexToInsert = IndexPath(row: self.parts.count + 1, section: 0)
                     self.parts.append( alert.textFields![0].text! )
-                    self.partsTableView.insertRowsAtIndexPaths([indexToInsert], withRowAnimation: .Automatic)
+                    self.partsTableView.insertRows(at: [indexToInsert], with: .automatic)
                     self.partsTableView.endUpdates()
                 })
-                let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
+                let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
                 
                 alert.addAction(cancelAction)
                 alert.addAction(addAction)
-                self.presentViewController(alert, animated: true, completion: nil)
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if tableView == partsTableView {
             if indexPath.row > 0 {
                 return true
@@ -303,16 +303,16 @@ extension FloatersViewController : UITableViewDelegate, UITableViewDataSource {
 
 extension FloatersViewController : SwiftSignatureViewDelegate {
     
-    func swiftSignatureViewDidTapInside(view: SwiftSignatureView) {
+    func swiftSignatureViewDidTapInside(_ view: SwiftSignatureView) {
         
     }
     
-    func swiftSignatureViewDidPanInside(view: SwiftSignatureView) {
-        self.acceptSigButton.tintColor = UIColor.greenColor()
-        self.captureSignatureNavigationItem.rightBarButtonItem?.enabled = true
+    func swiftSignatureViewDidPanInside(_ view: SwiftSignatureView) {
+        self.acceptSigButton.tintColor = UIColor.green
+        self.captureSignatureNavigationItem.rightBarButtonItem?.isEnabled = true
         
-        if self.overrideSignature.enabled {
-            self.overrideSignature.selected = false
+        if self.overrideSignature.isEnabled {
+            self.overrideSignature.isSelected = false
         }
         
     }

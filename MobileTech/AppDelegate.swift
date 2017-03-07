@@ -22,23 +22,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     var player : AVAudioPlayer!
     
     
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         self.registerSubclass()
         
         let parseConfig = ParseClientConfiguration {
-            $0.server = "http://insparklepools.com:1337/parse"
+            $0.server = "http://ps.mysparklepools.com:1337/parse"
             $0.applicationId = "inSparkle"
         }
         
         Parse.enableLocalDatastore()
-        Parse.initializeWithConfiguration(parseConfig)
+        Parse.initialize(with: parseConfig)
         
         locationManager.delegate = self
         switch CLLocationManager.authorizationStatus() {
-        case .NotDetermined:
+        case .notDetermined:
             locationManager.requestAlwaysAuthorization()
-        case .AuthorizedAlways:
+        case .authorizedAlways:
             self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
             self.locationManager.distanceFilter = 100
             self.locationManager.startUpdatingLocation()
@@ -47,11 +47,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
         
         // Enable this for silent background audio to keep the app alive
-        let path = NSBundle.mainBundle().pathForResource("silence", ofType: "wav")!
-        let audioURL = NSURL(fileURLWithPath: path)
+        let path = Bundle.main.path(forResource: "silence", ofType: "wav")!
+        let audioURL = URL(fileURLWithPath: path)
         
         do {
-            player = try AVAudioPlayer(contentsOfURL: audioURL)
+            player = try AVAudioPlayer(contentsOf: audioURL)
             player.numberOfLoops = (-1)
             player.prepareToPlay()
         } catch {
@@ -61,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         let session : AVAudioSession = AVAudioSession.sharedInstance()
         
         do {
-            try session.setCategory(AVAudioSessionCategoryPlayback, withOptions: .MixWithOthers)
+            try session.setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
             try AVAudioSession.sharedInstance().setActive(true)
         } catch {
             
@@ -75,21 +75,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         return true
     }
     
-    func applicationWillResignActive(application: UIApplication) {
+    func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     }
     
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
     
-    func applicationWillEnterForeground(application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
     
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         
 //        if let date = NSUserDefaults.standardUserDefaults().objectForKey("autoLogOutDate") as? NSDate {
 //            if date.isLessThanDate(NSDate()) {
@@ -105,7 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
     }
     
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
@@ -116,35 +116,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         WorkOrders.registerSubclass()
     }
     
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch CLLocationManager.authorizationStatus() {
-        case .Denied, .Restricted:
+        case .denied, .restricted:
             let alertController = UIAlertController(
                 title: "Roberts Gonna be PISSED",
                 message: "In order for Robert not to be pissed, open settings and set location services to 'Always'.",
-                preferredStyle: .Alert)
-            let openSettigs = UIAlertAction(title: "Open Settings", style: .Default, handler: { (action) in
-                if let url = NSURL(string: UIApplicationOpenSettingsURLString) {
-                    UIApplication.sharedApplication().openURL(url)
+                preferredStyle: .alert)
+            let openSettigs = UIAlertAction(title: "Open Settings", style: .default, handler: { (action) in
+                if let url = URL(string: UIApplicationOpenSettingsURLString) {
+                    UIApplication.shared.openURL(url)
                 }
             })
             alertController.addAction(openSettigs)
             
-            UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
+            UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
             
         default:
             break
         }
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
             if location.horizontalAccuracy < 20 {
                 let loc = LocationTracker()
                 loc.timeStamp = location.timestamp
-                loc.device = UIDevice.currentDevice().name
-                if PFUser.currentUser() != nil {
-                    loc.user = PFUser.currentUser()
+                loc.device = UIDevice.current.name
+                if PFUser.current() != nil {
+                    loc.user = PFUser.current()
                 }
                 loc.location = PFGeoPoint(location: location)
                 loc.saveEventually()
@@ -159,13 +159,13 @@ class GlobalViewControllers : NSObject {
     
 }
 
-extension NSDate {
-    func isGreaterThanDate(dateToCompare: NSDate) -> Bool {
+extension Date {
+    func isGreaterThanDate(_ dateToCompare: Date) -> Bool {
         //Declare Variables
         var isGreater = false
         
         //Compare Values
-        if self.compare(dateToCompare) == NSComparisonResult.OrderedDescending {
+        if self.compare(dateToCompare) == ComparisonResult.orderedDescending {
             isGreater = true
         }
         
@@ -173,12 +173,12 @@ extension NSDate {
         return isGreater
     }
     
-    func isLessThanDate(dateToCompare: NSDate) -> Bool {
+    func isLessThanDate(_ dateToCompare: Date) -> Bool {
         //Declare Variables
         var isLess = false
         
         //Compare Values
-        if self.compare(dateToCompare) == NSComparisonResult.OrderedAscending {
+        if self.compare(dateToCompare) == ComparisonResult.orderedAscending {
             isLess = true
         }
         
@@ -186,12 +186,12 @@ extension NSDate {
         return isLess
     }
     
-    func equalToDate(dateToCompare: NSDate) -> Bool {
+    func equalToDate(_ dateToCompare: Date) -> Bool {
         //Declare Variables
         var isEqualTo = false
         
         //Compare Values
-        if self.compare(dateToCompare) == NSComparisonResult.OrderedSame {
+        if self.compare(dateToCompare) == ComparisonResult.orderedSame {
             isEqualTo = true
         }
         
@@ -199,17 +199,17 @@ extension NSDate {
         return isEqualTo
     }
     
-    func addDays(daysToAdd: Int) -> NSDate {
-        let secondsInDays: NSTimeInterval = Double(daysToAdd) * 60 * 60 * 24
-        let dateWithDaysAdded: NSDate = self.dateByAddingTimeInterval(secondsInDays)
+    func addDays(_ daysToAdd: Int) -> Date {
+        let secondsInDays: TimeInterval = Double(daysToAdd) * 60 * 60 * 24
+        let dateWithDaysAdded: Date = self.addingTimeInterval(secondsInDays)
         
         //Return Result
         return dateWithDaysAdded
     }
     
-    func addHours(hoursToAdd: Int) -> NSDate {
-        let secondsInHours: NSTimeInterval = Double(hoursToAdd) * 60 * 60
-        let dateWithHoursAdded: NSDate = self.dateByAddingTimeInterval(secondsInHours)
+    func addHours(_ hoursToAdd: Int) -> Date {
+        let secondsInHours: TimeInterval = Double(hoursToAdd) * 60 * 60
+        let dateWithHoursAdded: Date = self.addingTimeInterval(secondsInHours)
         
         //Return Result
         return dateWithHoursAdded

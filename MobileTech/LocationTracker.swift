@@ -15,23 +15,23 @@ class LocationTracker: PFObject, PFSubclassing {
         return "LocationLog"
     }
     
-    var timeStamp : NSDate {
-        get {return objectForKey("timeStamp") as! NSDate}
+    var timeStamp : Date {
+        get {return object(forKey: "timeStamp") as! Date}
         set { setObject(newValue, forKey: "timeStamp") }
     }
     
     var device : String! {
-        get {return objectForKey("device") as! String}
+        get {return object(forKey: "device") as! String}
         set { setObject(newValue, forKey: "device") }
     }
     
     var user : PFUser? {
-        get {return objectForKey("user") as? PFUser}
+        get {return object(forKey: "user") as? PFUser}
         set { setObject(newValue!, forKey: "user") }
     }
     
     var location : PFGeoPoint {
-        get {return objectForKey("location") as! PFGeoPoint}
+        get {return object(forKey: "location") as! PFGeoPoint}
         set { setObject(newValue, forKey: "location") }
     }
     

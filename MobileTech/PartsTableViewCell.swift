@@ -21,14 +21,14 @@ class PartsTableViewCell: UITableViewCell {
 
 extension PartsTableViewCell : UITextFieldDelegate {
 
-    func textFieldDidEndEditing(textField: UITextField) {
-       let viewContoller = UIApplication.sharedApplication().windows[0].rootViewController!.childViewControllers.first as! FloatersViewController
+    func textFieldDidEndEditing(_ textField: UITextField) {
+       let viewContoller = UIApplication.shared.windows[0].rootViewController!.childViewControllers.first as! FloatersViewController
         viewContoller.parts[textField.tag] = textField.text!
         print(viewContoller.parts)
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        let viewContoller = UIApplication.sharedApplication().windows[0].rootViewController!.childViewControllers.first as! FloatersViewController
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let viewContoller = UIApplication.shared.windows[0].rootViewController!.childViewControllers.first as! FloatersViewController
         viewContoller.parts[textField.tag] = textField.text!
         print(viewContoller.parts)
         

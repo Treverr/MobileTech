@@ -29,8 +29,8 @@ class ServiceMainViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        topDrawer.layer.shadowColor = UIColor.blackColor().CGColor
-        topDrawer.layer.shadowOffset = CGSizeZero
+        topDrawer.layer.shadowColor = UIColor.black.cgColor
+        topDrawer.layer.shadowOffset = CGSize.zero
         topDrawer.layer.shadowOpacity = 1
         topDrawer.layer.shadowRadius = 5
         
@@ -40,34 +40,34 @@ class ServiceMainViewController: UIViewController, CLLocationManagerDelegate {
     
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
 
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
     }
     
     @IBOutlet var shadowViews: [UIView]!
     @IBOutlet weak var notesTableView: UITableView!
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "floaters" {
-            self.floaterPanelViewController = segue.destinationViewController as! FloatersViewController
+            self.floaterPanelViewController = segue.destination as! FloatersViewController
             self.floaterPanelViewController.serviceObject = self.serviceOrderObject
             self.floaterPanelViewController.workOrderObject = self.workOrderObject
         }
         
         if segue.identifier == "save" {
-            let destVC = segue.destinationViewController as! SaveButtonTableViewController
+            let destVC = segue.destination as! SaveButtonTableViewController
             destVC.floaterViewContoller = self.floaterPanelViewController
         }
     }
     
-    @IBAction func shouldCloseService(segue : UIStoryboardSegue) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-        self.dismissViewControllerAnimated(true) { 
-            NSNotificationCenter.defaultCenter().postNotificationName("DismissAndRefreshAssigned", object: nil)
+    @IBAction func shouldCloseService(_ segue : UIStoryboardSegue) {
+        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true) { 
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "DismissAndRefreshAssigned"), object: nil)
         }
     }
     

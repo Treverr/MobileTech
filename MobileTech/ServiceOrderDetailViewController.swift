@@ -30,7 +30,7 @@ class ServiceOrderDetailViewController: UIViewController {
         self.wtbpTextView.text = self.serviceObject.workToBePerformed
         
         if self.currentLocation == nil {
-            self.getDirections.hidden = true
+            self.getDirections.isHidden = true
         }
         
     }
@@ -40,7 +40,7 @@ class ServiceOrderDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func openServiceMain(sender: AnyObject) {
+    @IBAction func openServiceMain(_ sender: AnyObject) {
 //        let checkForPrevious = ServiceObject.query()
 //        checkForPrevious?.whereKey("relatedWorkOrder", equalTo: self.serviceObject)
 //        checkForPrevious?.orderByDescending("createdAt")
@@ -67,27 +67,27 @@ class ServiceOrderDetailViewController: UIViewController {
 //        })
         
         let sb = UIStoryboard(name: "Main", bundle: nil)
-        let vc = sb.instantiateViewControllerWithIdentifier("serviceMain") as! ServiceMainViewController
+        let vc = sb.instantiateViewController(withIdentifier: "serviceMain") as! ServiceMainViewController
         vc.serviceOrderObject = ServiceObject()
         print(self.serviceObject)
         vc.workOrderObject = self.serviceObject
         
-        self.presentViewController(vc, animated: true, completion: nil)
+        self.present(vc, animated: true, completion: nil)
     }
     
     @IBOutlet weak var getDirections: UIButton!
     
-    @IBAction func getDirectionsAction(sender: AnyObject) {
+    @IBAction func getDirectionsAction(_ sender: AnyObject) {
         self.askMapsToDisplayDirections()
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
     }
     
     func askMapsToDisplayDirections() {
         
-        CLGeocoder().geocodeAddressString(self.serviceObject.customerAddress) { (placemarks : [CLPlacemark]?, error : NSError?) in
+        CLGeocoder().geocodeAddressString(self.serviceObject.customerAddress) { (placemarks, error) in
             if let place = placemarks?[0] {
                 let destMapItem = MKMapItem(placemark: MKPlacemark(placemark: place))
                 
@@ -98,14 +98,12 @@ class ServiceOrderDetailViewController: UIViewController {
                 
                 let region = MKCoordinateRegionMakeWithDistance(currentLocationCoordinate!, 10000, 10000)
                 let options = [
-                    MKLaunchOptionsMapCenterKey: NSValue(MKCoordinate: region.center),
-                    MKLaunchOptionsMapSpanKey: NSValue(MKCoordinateSpan: region.span)
+                    MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: region.center),
+                    MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span)
                 ]
-                MKMapItem.openMapsWithItems([destMapItem], launchOptions: options)
+                MKMapItem.openMaps(with: [destMapItem], launchOptions: options)
                 
             }
         }
     }
-    
-    
 }

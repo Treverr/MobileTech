@@ -2,8 +2,27 @@
 //  NVActivityIndicatorViewable.swift
 //  NVActivityIndicatorViewDemo
 //
-//  Created by Basem Emara on 5/26/16.
-//  Copyright © 2016 Nguyen Vinh. All rights reserved.
+// The MIT License (MIT)
+
+// Copyright (c) 2016 Vinh Nguyen
+
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
 //
 
 import UIKit
@@ -11,67 +30,55 @@ import UIKit
 /**
  *  UIViewController conforms this protocol to be able to display NVActivityIndicatorView as UI blocker.
  *
- *  This will add functionalities to UIViewController to display and remove UI blocker.
+ *  This extends abilities of UIViewController to display and remove UI blocker.
  */
-public protocol NVActivityIndicatorViewable { }
+public protocol NVActivityIndicatorViewable {}
 
 public extension NVActivityIndicatorViewable where Self: UIViewController {
 
-    private var activityRestorationIdentifier: String {
-        return "NVActivityIndicatorViewContainer"
+    /**
+     Display UI blocker.
+
+     Appropriate NVActivityIndicatorView.DEFAULT_* values are used for omitted params.
+
+     - parameter size:                 size of activity indicator view.
+     - parameter message:              message displayed under activity indicator view.
+     - parameter messageFont:          font of message displayed under activity indicator view.
+     - parameter type:                 animation type.
+     - parameter color:                color of activity indicator view.
+     - parameter padding:              padding of activity indicator view.
+     - parameter displayTimeThreshold: display time threshold to actually display UI blocker.
+     - parameter minimumDisplayTime:   minimum display time of UI blocker.
+     */
+    public final func startAnimating(
+        _ size: CGSize? = nil,
+        message: String? = nil,
+        messageFont: UIFont? = nil,
+        type: NVActivityIndicatorType? = nil,
+        color: UIColor? = nil,
+        padding: CGFloat? = nil,
+        displayTimeThreshold: Int? = nil,
+        minimumDisplayTime: Int? = nil,
+        backgroundColor: UIColor? = nil,
+        textColor: UIColor? = nil) {
+        let activityData = ActivityData(size: size,
+                                        message: message,
+                                        messageFont: messageFont,
+                                        type: type,
+                                        color: color,
+                                        padding: padding,
+                                        displayTimeThreshold: displayTimeThreshold,
+                                        minimumDisplayTime: minimumDisplayTime,
+                                        backgroundColor: backgroundColor,
+                                        textColor: textColor)
+
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
     }
 
     /**
-     Create a activity indicator view with specified frame, type, color and padding and start animation.
-     
-     - parameter size: activity indicator view's size. Default size is 60x60.
-     - parameter message: message under activity indicator view.
-     - parameter type: animation type, value of NVActivityIndicatorType enum. Default type is BallSpinFadeLoader.
-     - parameter color: color of activity indicator view. Default color is white.
-     - parameter padding: view's padding. Default padding is 0.
+     Remove UI blocker.
      */
-    public func startActivityAnimating(size: CGSize? = nil, message: String? = nil, type: NVActivityIndicatorType? = nil, color: UIColor? = nil, padding: CGFloat? = nil) {
-        let activityContainer: UIView = UIView(frame: UIScreen.mainScreen().bounds)
-        
-        activityContainer.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
-        activityContainer.restorationIdentifier = activityRestorationIdentifier
-        
-        let actualSize = size ?? NVActivityIndicatorView.DEFAULT_BLOCKER_SIZE
-        let activityIndicatorView = NVActivityIndicatorView(
-            frame: CGRectMake(0, 0, actualSize.width, actualSize.height),
-            type: type,
-            color: color,
-            padding: padding)
-        
-        activityIndicatorView.center = activityContainer.center
-        activityIndicatorView.hidesWhenStopped = true
-        activityIndicatorView.startAnimation()
-        activityContainer.addSubview(activityIndicatorView)
-        
-        let width = activityContainer.frame.size.width / 3
-        if let message = message where !message.isEmpty {
-            let label = UILabel(frame: CGRectMake(0, 0, width, 30))
-            label.center = CGPointMake(
-                activityIndicatorView.center.x,
-                activityIndicatorView.center.y + actualSize.height)
-            label.textAlignment = .Center
-            label.text = message
-            label.font = UIFont.boldSystemFontOfSize(20)
-            label.textColor = activityIndicatorView.color
-            activityContainer.addSubview(label)
-        }
-        
-        UIApplication.sharedApplication().keyWindow!.addSubview(activityContainer)
+    public final func stopAnimating() {
+        NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
     }
-    
-    /**
-     Stop animation and remove from view hierarchy.
-     */
-    public func stopActivityAnimating() {
-        for item in UIApplication.sharedApplication().keyWindow!.subviews
-            where item.restorationIdentifier == activityRestorationIdentifier {
-                item.removeFromSuperview()
-        }
-    }
-    
 }

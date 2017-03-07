@@ -30,24 +30,24 @@ class NewNoteTableViewController: UITableViewController {
         super.viewDidLoad()
         
         noteTitleTextField.delegate = self
-        noteTitleTextField.addTarget(self, action: #selector(NewNoteTableViewController.textFieldDidChange(_:)), forControlEvents: .EditingChanged)
+        noteTitleTextField.addTarget(self, action: #selector(NewNoteTableViewController.textFieldDidChange(_:)), for: .editingChanged)
         noteTextView.delegate = self
 
     }
     
-    @IBAction func cancelAction(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true) { 
+    @IBAction func cancelAction(_ sender: AnyObject) {
+        self.dismiss(animated: true) { 
             
         }
     }
     
-    @IBAction func saveAction(sender: AnyObject) {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = .MediumStyle
-        dateFormatter.timeStyle = .ShortStyle
-        let dateString = dateFormatter.stringFromDate(NSDate())
+    @IBAction func saveAction(_ sender: AnyObject) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        let dateString = dateFormatter.string(from: Date())
         
-        let employee = PFUser.currentUser()?.objectForKey("employee") as! Employee
+        let employee = PFUser.current()?.object(forKey: "employee") as! Employee
         let employeeName = employee.firstName + " " + employee.lastName
         
         self.noteObject.noteTitle = self.noteTitleTextField.text!
@@ -56,24 +56,24 @@ class NewNoteTableViewController: UITableViewController {
         self.noteObject.relatedWorkOder = self.relatedWorkOrder
         
         if self.notes != nil {
-            self.notes?.insert(self.noteObject, atIndex: 0)
+            self.notes?.insert(self.noteObject, at: 0)
         } else {
             self.notes = [self.noteObject]
         }
         
         self.noteObject.saveEventually()
         
-        NSNotificationCenter.defaultCenter().postNotificationName("UpdateNotesNotificaiton", object: self.notes)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "UpdateNotesNotificaiton"), object: self.notes)
         
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
-    func textFieldDidChange(textField : UITextField) {
+    func textFieldDidChange(_ textField : UITextField) {
         if textField == noteTitleTextField {
             if !noteTitleTextField.text!.isEmpty {
-                noteTitleRequiredView.hidden = true
+                noteTitleRequiredView.isHidden = true
             } else {
-                noteTitleRequiredView.hidden = false
+                noteTitleRequiredView.isHidden = false
             }
         }
     }
@@ -81,7 +81,7 @@ class NewNoteTableViewController: UITableViewController {
 
 extension NewNoteTableViewController : UITextFieldDelegate {
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == noteTitleTextField {
             self.noteTextView.becomeFirstResponder()
         }
@@ -93,12 +93,12 @@ extension NewNoteTableViewController : UITextFieldDelegate {
 
 extension NewNoteTableViewController : UITextViewDelegate {
     
-    func textViewDidChange(textView: UITextView) {
+    func textViewDidChange(_ textView: UITextView) {
         if textView == noteTextView {
             if !noteTextView.text.isEmpty {
-                noteContentRequiredView.hidden = true
+                noteContentRequiredView.isHidden = true
             } else {
-                noteContentRequiredView.hidden = false
+                noteContentRequiredView.isHidden = false
             }
         }
     }

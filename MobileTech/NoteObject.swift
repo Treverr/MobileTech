@@ -16,22 +16,22 @@ class NoteObject: PFObject, PFSubclassing {
     }
     
     var noteTitle : String {
-        get { return objectForKey("noteTitle") as! String }
+        get { return object(forKey: "noteTitle") as! String }
         set { setObject(newValue, forKey: "noteTitle") }
     }
     
     var noteContent : String {
-        get { return objectForKey("noteContent") as! String }
+        get { return object(forKey: "noteContent") as! String }
         set { setObject(newValue, forKey: "noteContent") }
     }
     
     var relatedService : ServiceObject {
-        get { return objectForKey("relatedService") as! ServiceObject }
+        get { return object(forKey: "relatedService") as! ServiceObject }
         set { setObject(newValue, forKey: "relatedService") }
     }
     
     var relatedWorkOder : WorkOrders {
-        get { return objectForKey("relatedWorkOder") as! WorkOrders }
+        get { return object(forKey: "relatedWorkOder") as! WorkOrders }
         set { setObject(newValue, forKey: "relatedWorkOder") }
     }
     

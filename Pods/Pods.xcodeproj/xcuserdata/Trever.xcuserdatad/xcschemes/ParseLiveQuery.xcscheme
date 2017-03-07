@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '6DC91587B32A54545FC74D22684BDD69'
+               BlueprintIdentifier = '076C2D80C5C10632191A93A909CB6EFB'
                BlueprintName = 'ParseLiveQuery'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'ParseLiveQuery.framework'>

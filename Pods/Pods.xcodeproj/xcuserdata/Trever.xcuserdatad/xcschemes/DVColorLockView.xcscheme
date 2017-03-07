@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '9E3EC071F7F476F3F8190EE39C74C08A'
+               BlueprintIdentifier = '461BE262D2C22E9A69DEDEAECEBAA594'
                BlueprintName = 'DVColorLockView'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'DVColorLockView.framework'>

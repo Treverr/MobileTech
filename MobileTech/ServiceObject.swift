@@ -16,32 +16,32 @@ class ServiceObject: PFObject, PFSubclassing {
     }
     
     var relatedService : [ServiceObject]? {
-        get { return objectForKey("relatedService") as? [ServiceObject] }
+        get { return object(forKey: "relatedService") as? [ServiceObject] }
         set { setObject(newValue!, forKey: "relatedService") }
     }
     
     var parts : [String]? {
-        get { return objectForKey("parts") as? [String] }
+        get { return object(forKey: "parts") as? [String] }
         set { setObject(newValue!, forKey: "parts") }
     }
     
     var customerSignature : PFFile? {
-        get { return objectForKey("customerSignature") as? PFFile }
+        get { return object(forKey: "customerSignature") as? PFFile }
         set { setObject(newValue!, forKey: "customerSignature") }
     }
     
-    var trips : [[NSDate : NSDate]]? {
-        get { return objectForKey("trips") as? [[NSDate : NSDate]]}
+    var trips : [[Date : Date]]? {
+        get { return object(forKey: "trips") as? [[Date : Date]]}
         set { setObject(newValue!, forKey: "trips") }
     }
     
     var status : String {
-        get { return objectForKey("status") as! String}
+        get { return object(forKey: "status") as! String}
         set { setObject(newValue, forKey: "status") }
     }
     
     var relatedWorkOrder : WorkOrders! {
-        get { return objectForKey("relatedWorkOrder") as! WorkOrders}
+        get { return object(forKey: "relatedWorkOrder") as! WorkOrders}
         set { setObject(newValue, forKey: "relatedWorkOrder") }
     }
     

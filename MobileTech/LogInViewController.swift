@@ -25,9 +25,9 @@ class LogInViewController: UIViewController {
         self.sparkleConnect.delegate = self
         self.password.delegate = self
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LogInViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LogInViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LogInViewController.QRLogIn(_:)), name: "QRLogIn", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LogInViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LogInViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LogInViewController.QRLogIn(_:)), name: NSNotification.Name(rawValue: "QRLogIn"), object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -35,11 +35,11 @@ class LogInViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func keyboardWillShow(notification: NSNotification) {
+    func keyboardWillShow(_ notification: Notification) {
         
         let info = notification.userInfo
-        let keyboardFrame = info![UIKeyboardFrameEndUserInfoKey]?.CGRectValue()
-        let keyboard = self.view.convertRect(keyboardFrame!, fromView: self.view.window)
+        let keyboardFrame = (info![UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue
+        let keyboard = self.view.convert(keyboardFrame!, from: self.view.window)
         let height = self.view.frame.size.height
         let toolbarHeight = height - keyboard.origin.y
         
@@ -61,19 +61,19 @@ class LogInViewController: UIViewController {
         }
     }
     
-    func keyboardWillHide(notification: NSNotification) {
-        let contentinset = UIEdgeInsetsZero
+    func keyboardWillHide(_ notification: Notification) {
+        let contentinset = UIEdgeInsets.zero
         scrollView.contentInset = contentinset
         scrollView.scrollIndicatorInsets = contentinset
     }
     
-    @IBAction func qrAction(sender: AnyObject) {
+    @IBAction func qrAction(_ sender: AnyObject) {
         
     }
     
-    @IBAction func QRLogIn(notification : NSNotification) {
+    @IBAction func QRLogIn(_ notification : AnyObject) {
         let code = notification.object
-        let userPass = code!.componentsSeparatedByString(" ")
+        let userPass = (code! as AnyObject).components(separatedBy: " ")
         let user = userPass[0]
         let pass = userPass[1]
         self.sparkleConnect.text = user
@@ -82,31 +82,32 @@ class LogInViewController: UIViewController {
     }
     
     func logIn() {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .Alert)
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         if !self.sparkleConnect.text!.isEmpty && !self.password.text!.isEmpty {
             
             self.sparkleConnectAnimation()
             
-            PFUser.logInWithUsernameInBackground(self.sparkleConnect.text!, password: self.password.text!, block: { (user : PFUser?, error : NSError?) in
+            PFUser.logInWithUsername(inBackground: self.sparkleConnect.text!, password: self.password.text!, block: { (user, error) in
                 if error == nil && user != nil {
-                    self.loadingUI.stopAnimation()
-                    self.dismissViewControllerAnimated(true, completion: {
-                        let cal = NSCalendar.currentCalendar()
-                        let startOfTomorrow = cal.startOfDayForDate(NSDate().dateByAddingTimeInterval(60*60*24*1))
-                        NSUserDefaults.standardUserDefaults().setObject(startOfTomorrow, forKey: "autoLogOutDate")
-                        NSNotificationCenter.defaultCenter().postNotificationName("DismissAndRefreshAssigned", object: nil)
+                    self.loadingUI.stopAnimating()
+                    self.dismiss(animated: true, completion: {
+                        let cal = Calendar.current
+                        let startOfTomorrow = cal.startOfDay(for: Date().addingTimeInterval(60*60*24*1))
+                        UserDefaults.standard.set(startOfTomorrow, forKey: "autoLogOutDate")
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "DismissAndRefreshAssigned"), object: nil)
                     })
                 } else if error != nil {
-                    switch error!.code {
+                    let errorCode = error as! NSError
+                    switch errorCode.code {
                     case 101:
-                        self.loadingUI.stopAnimation()
+                        self.loadingUI.stopAnimating()
                         self.loadingBackground.removeFromSuperview()
                         self.label.removeFromSuperview()
                         
-                        let errorAlert = UIAlertController(title: "Invalid Username or Password", message: "Please try again.", preferredStyle: .Alert)
-                        let okayButton = UIAlertAction(title: "Okay", style: .Default, handler: nil)
+                        let errorAlert = UIAlertController(title: "Invalid Username or Password", message: "Please try again.", preferredStyle: .alert)
+                        let okayButton = UIAlertAction(title: "Okay", style: .default, handler: nil)
                         errorAlert.addAction(okayButton)
-                        self.presentViewController(errorAlert, animated: true, completion: nil)
+                        self.present(errorAlert, animated: true, completion: nil)
                     default:
                         break
                     }
@@ -116,35 +117,35 @@ class LogInViewController: UIViewController {
         } else if self.password.text!.isEmpty && self.sparkleConnect.text!.isEmpty {
             alert.title = "SparkleConnect & password Required"
             alert.message = "A SparkleConnect and Password is required to log in."
-            let okayButton = UIAlertAction(title: "Okay", style: .Default, handler: { (action) in
+            let okayButton = UIAlertAction(title: "Okay", style: .default, handler: { (action) in
                 self.sparkleConnect.becomeFirstResponder()
             })
             alert.addAction(okayButton)
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
         } else if self.sparkleConnect.text!.isEmpty {
             alert.title = "SparkleConnect Required"
             alert.message = "A SparkleConnect is required to log in."
-            let okayButton = UIAlertAction(title: "Okay", style: .Default, handler: { (action) in
+            let okayButton = UIAlertAction(title: "Okay", style: .default, handler: { (action) in
                 self.sparkleConnect.becomeFirstResponder()
             })
             alert.addAction(okayButton)
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
         } else if self.password.text!.isEmpty {
             alert.title = "Password Required"
             alert.message = "Password is required to log in."
-            let okayButton = UIAlertAction(title: "Okay", style: .Default, handler: { (action) in
+            let okayButton = UIAlertAction(title: "Okay", style: .default, handler: { (action) in
                 self.password.becomeFirstResponder()
             })
             alert.addAction(okayButton)
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
-    @IBAction func signInButton(sender: AnyObject) {
-        if self.password.isFirstResponder() {
+    @IBAction func signInButton(_ sender: AnyObject) {
+        if self.password.isFirstResponder {
             self.password.resignFirstResponder()
         }
-        if self.sparkleConnect.isFirstResponder() {
+        if self.sparkleConnect.isFirstResponder {
             self.sparkleConnect.resignFirstResponder()
         }
         self.logIn()
@@ -155,32 +156,32 @@ class LogInViewController: UIViewController {
     var label = UILabel()
     
     func sparkleConnectAnimation() {
-        let screenSize = UIScreen.mainScreen().bounds.size
+        let screenSize = UIScreen.main.bounds.size
         let x = (screenSize.width / 2)
         let y = (screenSize.height / 2)
         
-        self.loadingBackground.backgroundColor = UIColor.blackColor()
-        self.loadingBackground.frame = CGRectMake(0, 0, 300, 125)
-        self.loadingBackground.center = CGPointMake(x, y - 100)
+        self.loadingBackground.backgroundColor = UIColor.black
+        self.loadingBackground.frame = CGRect(x: 0, y: 0, width: 300, height: 125)
+        self.loadingBackground.center = CGPoint(x: x, y: y - 100)
         self.loadingBackground.layer.cornerRadius = 5
         self.loadingBackground.layer.opacity = 0.75
         
-        self.loadingUI = NVActivityIndicatorView(frame: CGRectMake(x, y, 100, 50))
+        self.loadingUI = NVActivityIndicatorView(frame: CGRect(x: x, y: y, width: 100, height: 50))
         self.loadingUI.center = self.loadingBackground.center
         
         label.frame = loadingBackground.frame
-        label.center = CGPointMake(self.loadingBackground.center.x, self.loadingBackground.center.y + 35)
+        label.center = CGPoint(x: self.loadingBackground.center.x, y: self.loadingBackground.center.y + 35)
         label.text = "Authenticating with SparkleConnect...."
-        label.textColor = UIColor.whiteColor()
-        label.textAlignment = .Center
+        label.textColor = UIColor.white
+        label.textAlignment = .center
         
         self.view.addSubview(loadingBackground)
         self.view.addSubview(loadingUI)
         self.view.addSubview(label)
         
-        loadingUI.type = .BallBeat
-        loadingUI.color = UIColor.whiteColor()
-        loadingUI.startAnimation()
+        loadingUI.type = .ballBeat
+        loadingUI.color = UIColor.white
+        loadingUI.startAnimating()
         
     }
     
@@ -188,7 +189,7 @@ class LogInViewController: UIViewController {
 
 extension LogInViewController : UITextFieldDelegate {
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == password {
             textField.resignFirstResponder()
             self.logIn()

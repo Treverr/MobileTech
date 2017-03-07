@@ -23,11 +23,11 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MyAssignedTableViewController.dismissAndRefresh), name: "DismissAndRefreshAssigned", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MyAssignedTableViewController.dismissAndRefresh), name: NSNotification.Name(rawValue: "DismissAndRefreshAssigned"), object: nil)
         GlobalViewControllers.MyAssigned = self
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         tapBGGesture = UITapGestureRecognizer(target: self, action: #selector(MyAssignedTableViewController.settingsBGTapped(_:)))
         tapBGGesture.delegate = self
         tapBGGesture.numberOfTapsRequired = 1
@@ -36,9 +36,9 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
         
     }
     
-    override func viewWillAppear(animated: Bool) {
-        if PFUser.currentUser() != nil {
-            PFUser.currentUser()?.objectForKey("employee")?.fetchInBackgroundWithBlock({ (emp : PFObject?, error : NSError?) in
+    override func viewWillAppear(_ animated: Bool) {
+        if PFUser.current() != nil {
+            (PFUser.current()?.object(forKey: "employee") as AnyObject).fetchInBackground(block: { (emp, error) in
                 if error == nil {
                     self.employee = emp as! Employee
                     print(self.employee)
@@ -54,15 +54,15 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
         // Dispose of any resources that can be recreated.
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
             return 0
@@ -73,7 +73,7 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
         }
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
             return "Priority"
@@ -84,8 +84,8 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
         }
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("assignedCell") as! MyAssignedTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "assignedCell") as! MyAssignedTableViewCell
         let address = self.workOrders[indexPath.row].customerAddress
         
         cell.customerName.text! = self.workOrders[indexPath.row].customerName
@@ -93,7 +93,7 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
         
         if !self.locationFailed {
             if self.currentLocation != nil {
-                self.getETA(address, cell: cell)
+                self.getETA(address!, cell: cell)
             } else {
                 cell.travelTime.text = "Calculating..."
             }
@@ -105,36 +105,36 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
     }
     
     func dismissAndRefresh() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
         self.getAssignedOrders()
     }
     
-    func settingsBGTapped(sender: UITapGestureRecognizer){
-        if sender.state == UIGestureRecognizerState.Ended{
+    func settingsBGTapped(_ sender: UITapGestureRecognizer){
+        if sender.state == UIGestureRecognizerState.ended{
             guard let presentedView = presentedViewController?.view else {
                 return
             }
-            if !CGRectContainsPoint(presentedView.bounds, sender.locationInView(presentedView)) {
-                self.dismissViewControllerAnimated(true, completion: { () -> Void in
+            if !presentedView.bounds.contains(sender.location(in: presentedView)) {
+                self.dismiss(animated: true, completion: { () -> Void in
                 })
             }
         }
         self.getAssignedOrders()
     }
     
-    @IBAction func refreshManualButton(sender: AnyObject) {
-        if PFUser.currentUser() != nil {
-            PFUser.currentUser()?.objectForKey("employee")?.fetchInBackgroundWithBlock({ (emp : PFObject?, error : NSError?) in
+    @IBAction func refreshManualButton(_ sender: AnyObject) {
+        if PFUser.current() != nil {
+            (PFUser.current()?.object(forKey: "employee") as AnyObject).fetchInBackground(block: { (emp, error) in
                 if error == nil {
                     self.employee = emp as! Employee
                     print(self.employee)
                     self.getAssignedOrders()
                     self.updateCurrentLocation()
                 } else {
-                    let errorAlert = UIAlertController(title: "Error", message: "Unable to refresh at this time, check the network connectiona and try again. If the issue persists contact IS&T.", preferredStyle: .Alert)
-                    let cancel = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
+                    let errorAlert = UIAlertController(title: "Error", message: "Unable to refresh at this time, check the network connectiona and try again. If the issue persists contact IS&T.", preferredStyle: .alert)
+                    let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
                     errorAlert.addAction(cancel)
-                    self.presentViewController(errorAlert, animated: true, completion: nil)
+                    self.present(errorAlert, animated: true, completion: nil)
                 }
             })
         }
@@ -143,37 +143,37 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
     func getAssignedOrders() {
         
         for monitored in self.locationManager.monitoredRegions {
-            locationManager.stopMonitoringForRegion(monitored)
+            locationManager.stopMonitoring(for: monitored)
         }
         
-        let timeZone = NSTimeZone(abbreviation: "UTC")
-        let date = NSDate()
-        let components = NSCalendar.currentCalendar().components([.Day, .Month, .Year], fromDate: date)
+        let timeZone = TimeZone(abbreviation: "UTC")
+        let date = Date()
+        let components = (Calendar.current as NSCalendar).components([.day, .month, .year], from: date)
         
         let day = components.day
         let month = components.month
         let year = components.year
         
-        let start = NSCalendar.currentCalendar().componentsInTimeZone(timeZone!, fromDate: NSDate())
+        var start = Calendar.current.dateComponents(in: timeZone!, from: Date())
         start.day = day
         start.month = month
         start.year = year
         start.hour = 0
         start.minute = 0
         start.second = 0
-        let startOfToday = NSCalendar.currentCalendar().dateFromComponents(start)
+        let startOfToday = Calendar.current.date(from: start)
         
-        let end = NSCalendar.currentCalendar().componentsInTimeZone(timeZone!, fromDate: NSDate())
+        var end = Calendar.current.dateComponents(in: timeZone!, from: Date())
         end.day = day
         end.month = month
         end.year = year
         end.hour = 23
         end.minute = 59
         end.second = 59
-        let endOfToday = NSCalendar.currentCalendar().dateFromComponents(end)
+        let endOfToday = Calendar.current.date(from: end)
         
         let statuses : [String] = ["New", "In Progress", "On Hold", "Assigned"]
-        let name = self.employee.firstName.capitalizedString + " " + self.employee.lastName.capitalizedString
+        let name = self.employee.firstName.capitalized + " " + self.employee.lastName.capitalized
         
         let nameQuery = WorkOrders.query()!
         nameQuery.whereKey("technician", equalTo: name)
@@ -186,35 +186,36 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
         pointerQuery.whereKey("technicianPointer", equalTo: self.employee)
         
         
-        PFQuery.orQueryWithSubqueries([pointerQuery, nameQuery]).findObjectsInBackgroundWithBlock { (results : [PFObject]?, error : NSError?) in
+        PFQuery.orQuery(withSubqueries: [pointerQuery, nameQuery]).findObjectsInBackground { (results, error) in
             if error == nil {
                 self.doThingsWithResults(results!)
             } else {
-                if error?.code == 100 {
+                let errorCode = (error as! NSError).code
+                if errorCode == 100 {
                     self.doThingsWithResults(self.workOrders)
                 }
             }
         }
     }
     
-    func doThingsWithResults(results : [PFObject]) {
+    func doThingsWithResults(_ results : [PFObject]) {
         if results.count == 0 {
             self.workOrders = []
-            let noAssigned = UILabel(frame: CGRectMake(0,0,self.view.bounds.size.width, self.view.bounds.size.height))
+            let noAssigned = UILabel(frame: CGRect(x: 0,y: 0,width: self.view.bounds.size.width, height: self.view.bounds.size.height))
             noAssigned.text = "No Assigned Service Orders"
-            noAssigned.textColor = UIColor.grayColor()
-            noAssigned.backgroundColor = UIColor.whiteColor()
+            noAssigned.textColor = UIColor.gray
+            noAssigned.backgroundColor = UIColor.white
             noAssigned.numberOfLines = 0
-            noAssigned.textAlignment = .Center
+            noAssigned.textAlignment = .center
             noAssigned.font = (UIFont(name: "Helvetica-Light", size: 24))
             noAssigned.sizeToFit()
             self.tableView.tableFooterView = UIView()
             self.tableView.backgroundView = noAssigned
-            self.tableView.separatorStyle = .None
-            self.tableView.scrollEnabled = false
+            self.tableView.separatorStyle = .none
+            self.tableView.isScrollEnabled = false
             
-            let myAssignedSection = NSIndexSet(index: 1)
-            self.tableView.reloadSections(myAssignedSection, withRowAnimation: .Automatic)
+            let myAssignedSection = IndexSet(integer: 1)
+            self.tableView.reloadSections(myAssignedSection, with: .automatic)
             
             let masterTableView = self.splitViewController?.viewControllers.first?.childViewControllers.first as! MasterTableViewController
             masterTableView.updateCellBadge("myAssigned", count: (results.count))
@@ -224,41 +225,41 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
             
             self.tableView.tableFooterView = nil
             self.tableView.backgroundView = nil
-            self.tableView.separatorStyle = .SingleLine
-            self.tableView.scrollEnabled = true
+            self.tableView.separatorStyle = .singleLine
+            self.tableView.isScrollEnabled = true
             
             let masterTableView = self.splitViewController?.viewControllers.first?.childViewControllers.first as! MasterTableViewController
             print(masterTableView)
             
             masterTableView.updateCellBadge("myAssigned", count: (results.count))
             
-            let myAssignedSection = NSIndexSet(index: 1)
-            self.tableView.reloadSections(myAssignedSection, withRowAnimation: .Automatic)
+            let myAssignedSection = IndexSet(integer: 1)
+            self.tableView.reloadSections(myAssignedSection, with: .automatic)
         }
     }
     
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         self.view.window!.removeGestureRecognizer(tapBGGesture)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detailSegue" {
             let indexPath = self.tableView.indexPathForSelectedRow
-            let vc = segue.destinationViewController as! ServiceOrderDetailViewController
+            let vc = segue.destination as! ServiceOrderDetailViewController
             vc.serviceObject = self.workOrders[indexPath!.row]
             vc.currentLocation = self.currentLocation
         }
     }
     
-    func getETA(destination : String, cell : MyAssignedTableViewCell) {
+    func getETA(_ destination : String, cell : MyAssignedTableViewCell) {
         
         var destMapItem : MKMapItem!
-        var eta : NSTimeInterval!
+        var eta : TimeInterval!
         
-        CLGeocoder().geocodeAddressString(destination) { (placemarks : [CLPlacemark]?, error : NSError?) in
+        CLGeocoder().geocodeAddressString(destination) { (placemarks, error) in
             print(placemarks)
             if let place = placemarks?[0] {
                 print(place)
@@ -268,7 +269,7 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
                 let mkMapItem = MKMapItem(placemark: mkPlace)
                 let request = MKDirectionsRequest()
                 
-                let indexPath = self.tableView.indexPathForCell(cell)
+                let indexPath = self.tableView.indexPath(for: cell)
                 if indexPath != nil {
                     let identifier = self.workOrders[indexPath!.row].objectId
                     let center = MKPlacemark(placemark: place).coordinate
@@ -276,13 +277,13 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
                     
                     print(self.locationManager.monitoredRegions)
                     
-                    self.locationManager.startMonitoringForRegion(geoFence)
+                    self.locationManager.startMonitoring(for: geoFence)
                     
                     request.source = mkMapItem
                     request.destination = destMapItem
-                    request.transportType = .Automobile
+                    request.transportType = .automobile
                     let directions = MKDirections(request: request)
-                    directions.calculateETAWithCompletionHandler { (response : MKETAResponse?, error : NSError?) in
+                    directions.calculateETA { (response, error) in
                         print(response?.expectedTravelTime)
                         if response != nil {
                             let travelTime = Int(response!.expectedTravelTime) / 60
@@ -305,25 +306,25 @@ class MyAssignedTableViewController: UITableViewController, UIGestureRecognizerD
         }
     }
     
-    func formatAddressFromPlacemark(placemark: CLPlacemark) -> String {
+    func formatAddressFromPlacemark(_ placemark: CLPlacemark) -> String {
         return (placemark.addressDictionary!["FormattedAddressLines"] as!
-            [String]).joinWithSeparator(", ")
+            [String]).joined(separator: ", ")
     }
     
-    func logLocation(location : CLLocation) {
+    func logLocation(_ location : CLLocation) {
         let loc = LocationTracker()
         loc.timeStamp = location.timestamp
-        loc.device = UIDevice.currentDevice().name
-        loc.user = PFUser.currentUser()
+        loc.device = UIDevice.current.name
+        loc.user = PFUser.current()
         loc.location = PFGeoPoint(location: location)
         loc.saveEventually()
     }
     
-    func saveTimeLog(workOderObjectID : String, enter : Bool) {
+    func saveTimeLog(_ workOderObjectID : String, enter : Bool) {
         let timeObj = WorkServiceOrderTimeLog()
-        timeObj.timeStamp = NSDate()
-        timeObj.device = UIDevice.currentDevice().name
-        timeObj.userLoggedIn = PFUser.currentUser()!
+        timeObj.timeStamp = Date()
+        timeObj.device = UIDevice.current.name
+        timeObj.userLoggedIn = PFUser.current()!
         timeObj.relatedWorkOrderObjectID = workOderObjectID
         timeObj.enter = enter
         timeObj.saveEventually()
@@ -340,8 +341,8 @@ extension MyAssignedTableViewController : CLLocationManagerDelegate {
         self.locationManager.requestLocation()
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        CLGeocoder().reverseGeocodeLocation(locations.last!) { (placemarks : [CLPlacemark]?, error : NSError?) in
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        CLGeocoder().reverseGeocodeLocation(locations.last!) { (placemarks, error) in
             if let placemarks = placemarks {
                 let placemark = placemarks[0]
                 self.currentLocation = placemark
@@ -351,15 +352,15 @@ extension MyAssignedTableViewController : CLLocationManagerDelegate {
         }
     }
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         self.locationFailed = true
     }
     
-    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         self.saveTimeLog(region.identifier, enter: true)
     }
     
-    func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         print(region.identifier)
         self.saveTimeLog(region.identifier, enter: false)
     }

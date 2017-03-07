@@ -11,15 +11,15 @@ import Parse
 
 class LogOutViewController: UIViewController {
     
-    var timer : NSTimer?
+    var timer : Timer?
     
-    @IBAction func logOutButton(sender: AnyObject) {
-        PFUser.logOutInBackgroundWithBlock { (error : NSError?) in
+    @IBAction func logOutButton(_ sender: AnyObject) {
+        PFUser.logOutInBackground { (error) in
             if error == nil {
-                let logInVC = UIStoryboard(name: "Log In", bundle: nil).instantiateViewControllerWithIdentifier("logInViewController")
-                self.dismissViewControllerAnimated(true, completion: {
+                let logInVC = UIStoryboard(name: "Log In", bundle: nil).instantiateViewController(withIdentifier: "logInViewController")
+                self.dismiss(animated: true, completion: {
                     GlobalViewControllers.MyAssigned.workOrders = []
-                    GlobalViewControllers.MyAssigned.presentViewController(logInVC, animated: true, completion: nil)
+                    GlobalViewControllers.MyAssigned.present(logInVC, animated: true, completion: nil)
                 })
             }
         }

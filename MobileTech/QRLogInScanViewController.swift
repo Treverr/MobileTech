@@ -18,24 +18,24 @@ class QRLogInScanViewController: UIViewController, AVCaptureMetadataOutputObject
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) == .NotDetermined {
-            AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo, completionHandler: { (granted : Bool) in
+        if AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) == .notDetermined {
+            AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: { (granted : Bool) in
                 if !granted {
                     return
                 }
             })
         }
         
-        view.backgroundColor = UIColor.blackColor()
+        view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
         
-        var videoCaptureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        var videoCaptureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         let videoInput : AVCaptureDeviceInput!
         
-        if videoCaptureDevice.position == .Back {
+        if videoCaptureDevice?.position == .back {
             let devices = AVCaptureDevice.devices()
-            for device in devices {
-                if device.position == .Front {
+            for device in devices! {
+                if (device as AnyObject).position == .front {
                     let frontCamera = device as! AVCaptureDevice
                     videoCaptureDevice = frontCamera
                 }
@@ -60,7 +60,7 @@ class QRLogInScanViewController: UIViewController, AVCaptureMetadataOutputObject
         if (captureSession.canAddOutput(metadataOutput)) {
             captureSession.addOutput(metadataOutput)
             
-            metadataOutput.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
+            metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
             metadataOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
         } else {
             failed()
@@ -71,18 +71,18 @@ class QRLogInScanViewController: UIViewController, AVCaptureMetadataOutputObject
         previewLayer.frame = view.layer.bounds
         previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
         
-        let orientation: UIDeviceOrientation = UIDevice.currentDevice().orientation
+        let orientation: UIDeviceOrientation = UIDevice.current.orientation
         print(orientation)
         
         switch (orientation) {
-        case .Portrait:
-            previewLayer?.connection.videoOrientation = .Portrait
-        case .LandscapeRight:
-            previewLayer?.connection.videoOrientation = .LandscapeLeft
-        case .LandscapeLeft:
-            previewLayer?.connection.videoOrientation = .LandscapeRight
+        case .portrait:
+            previewLayer?.connection.videoOrientation = .portrait
+        case .landscapeRight:
+            previewLayer?.connection.videoOrientation = .landscapeLeft
+        case .landscapeLeft:
+            previewLayer?.connection.videoOrientation = .landscapeRight
         default:
-            previewLayer?.connection.videoOrientation = .Portrait
+            previewLayer?.connection.videoOrientation = .portrait
         }
         
         view.layer.addSublayer(previewLayer)
@@ -91,41 +91,41 @@ class QRLogInScanViewController: UIViewController, AVCaptureMetadataOutputObject
         
     }
     
-    @IBAction func closeButton(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func closeButton(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
     }
     
     func failed() {
-        let ac = UIAlertController(title: "Scanning not supported", message: "Your device does not support scanning a code from an item. Please use a device with a camera.", preferredStyle: .Alert)
-        let okayAction = UIAlertAction(title: "OK", style: .Default) { (action) in
-            self.dismissViewControllerAnimated(true, completion: nil)
+        let ac = UIAlertController(title: "Scanning not supported", message: "Your device does not support scanning a code from an item. Please use a device with a camera.", preferredStyle: .alert)
+        let okayAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            self.dismiss(animated: true, completion: nil)
         }
         ac.addAction(okayAction)
-        self.presentViewController(ac, animated: true, completion: nil)
+        self.present(ac, animated: true, completion: nil)
         captureSession = nil
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if (captureSession?.running == false) {
+        if (captureSession?.isRunning == false) {
             captureSession.startRunning()
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if (captureSession?.running == true) {
+        if (captureSession?.isRunning == true) {
             captureSession.stopRunning()
         }
     }
     
-    func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
         if let metadataObject = metadataObjects.first {
             let readableObject = metadataObject as! AVMetadataMachineReadableCodeObject
             
@@ -134,9 +134,9 @@ class QRLogInScanViewController: UIViewController, AVCaptureMetadataOutputObject
         }
     }
     
-    func found(code : String) {
-        self.dismissViewControllerAnimated(true) {
-            NSNotificationCenter.defaultCenter().postNotificationName("QRLogIn", object: code)
+    func found(_ code : String) {
+        self.dismiss(animated: true) {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "QRLogIn"), object: code)
         }
     }
     
